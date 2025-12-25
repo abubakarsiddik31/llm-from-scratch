@@ -138,7 +138,7 @@ def load_data(data_path):
     print(f"Train data: {len(train_data):,} characters")
     print(f"Val data:   {len(val_data):,} characters")
 
-    return train_data, val_data, encode, decode
+    return train_data, val_data, encode, decode, stoi, itos
 
 
 # =============================================================================
@@ -313,7 +313,7 @@ def estimate_loss():
 # PART 4: MAIN TRAINING LOOP
 # =============================================================================
 
-def train(model, train_data, val_data, decode, checkpoint_dir):
+def train(model, train_data, val_data, decode, stoi, itos, checkpoint_dir):
     """
     Main training loop implementing the GPT training procedure.
 
@@ -644,7 +644,7 @@ if __name__ == "__main__":
         exit(1)
 
     global train_data, val_data
-    train_data, val_data, encode, decode = load_data(data_path)
+    train_data, val_data, encode, decode, stoi, itos = load_data(data_path)
 
     # ===========================================================================
     # CREATE MODEL
@@ -707,7 +707,7 @@ if __name__ == "__main__":
     - Shakespeare: ~1M characters
     - So we see the dataset ~80 times (equivalent to 80 epochs)
     """
-    train(model, train_data, val_data, decode, checkpoint_dir)
+    train(model, train_data, val_data, decode, stoi, itos, checkpoint_dir)
 
     # ===========================================================================
     # SAVE METADATA (FOR INFERENCE)
@@ -715,6 +715,9 @@ if __name__ == "__main__":
 
     """
     Save encode/decode functions so inference can use them.
+
+    NOTE: We save stoi/itos dictionaries instead of lambda functions
+    because lambda functions can't always be pickled reliably.
 
     In production, you'd also save:
     - Full model config (architecture hyperparameters)
@@ -724,5 +727,5 @@ if __name__ == "__main__":
     import pickle
     meta_path = os.path.join(checkpoint_dir, 'meta.pkl')
     with open(meta_path, 'wb') as f:
-        pickle.dump({'encode': encode, 'decode': decode}, f)
+        pickle.dump({'stoi': stoi, 'itos': itos}, f)
     print(f"Saved metadata to {meta_path}")

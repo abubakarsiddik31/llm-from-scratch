@@ -61,14 +61,22 @@ def load_model(checkpoint_path, meta_path):
     model.to(config.DEVICE)
     model.eval()  # Set to evaluation mode (disables dropout)
 
-    # Load metadata (encode/decode functions)
+    # Load metadata (stoi/itos dictionaries)
+    # NOTE: We save dictionaries instead of lambda functions for pickle compatibility
     with open(meta_path, "rb") as f:
         meta = pickle.load(f)
 
-    encode = meta["encode"]
-    decode = meta["decode"]
+    stoi = meta["stoi"]
+    itos = meta["itos"]
 
-    print(f"✓ Model loaded")
+    # Reconstruct encode/decode functions
+    def encode(s):
+        return [stoi[c] for c in s]
+
+    def decode(l):
+        return "".join([itos[i] for i in l])
+
+    print("✓ Model loaded")
 
     # Print training info if available
     if "train_loss" in checkpoint:
