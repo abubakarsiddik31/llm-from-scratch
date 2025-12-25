@@ -1,0 +1,167 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+.conda/
+conda-lock/
+
+# uv
+uv.lock
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Data files (datasets, text files)
+data/
+*.txt
+*.csv
+*.json
+*.parquet
+*.zip
+*.tar.gz
+
+# Trained Models & Checkpoints (can be large)
+checkpoints/
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.ckpt
+*.nemo
+
+# Hugging Face cache
+.cache/
+huggingface/
+
+# Weights & Biases
+wandb/
+
+# TensorBoard / Logs
+logs/
+runs/
+events.out.tfevents.*
+tensorboard/
+
+# Experiment outputs
+outputs/
+results/
+experiments/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre
+.pyre/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Pre-trained models (don't commit large binary files)
+models/
+*.gguf
+*.ggml
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# Logs
+*.log
+
+# Slurm / Job scheduler
+slurm-*
+*.out
+*.err
+
+# Lightning
+lightning_logs/
+
+# Gradio
+gradio_cached_examples/
+flagged/
+
+# FastAPI
+instance/
+.webassets-cache
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Keep important config files
+!config.py
+!.gitignore
+!README.md
+!pyproject.toml
