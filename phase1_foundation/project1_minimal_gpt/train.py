@@ -640,7 +640,7 @@ if __name__ == "__main__":
         print(f"\nData file not found at {data_path}")
         print("Please download Shakespeare text:")
         print("  wget https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt -O data/shakespeare.txt")
-        print("Or run: python week1/project1_minimal_gpt/download_data.py")
+        print("Or run: python phase1_foundation/project1_minimal_gpt/download_data.py")
         exit(1)
 
     global train_data, val_data

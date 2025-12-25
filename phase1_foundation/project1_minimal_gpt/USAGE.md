@@ -4,7 +4,7 @@
 
 ```bash
 # 1. Download data
-cd week1/project1_minimal_gpt
+cd phase1_foundation/project1_minimal_gpt
 python download_data.py
 
 # 2. Train the model
