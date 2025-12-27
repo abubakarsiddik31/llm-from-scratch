@@ -160,6 +160,9 @@ instance/
 *.sqlite
 *.sqlite3
 
+# Claude Code specification files
+/**/.claude.md
+
 # Keep important config files
 !config.py
 !.gitignore
