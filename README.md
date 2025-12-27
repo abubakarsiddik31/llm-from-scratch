@@ -43,7 +43,7 @@ You'll implement every component of an LLM pipeline from scratch:
 
 <div align="center">
 
-### 10 Phases • 30 Projects • From Zero to Production
+### 10 Phases • 31 Projects • From Zero to Production
 
 </div>
 
@@ -52,10 +52,11 @@ You'll implement every component of an LLM pipeline from scratch:
 | Project | Topic | Status |
 |---------|-------|--------|
 | **1** | Character-Level GPT | ✅ Complete |
-| **2** | BPE Tokenizer | ⏳ Pending |
-| **3** | Pre-train 125M Model | ⏳ Pending |
+| **2** | BPE Tokenizer | ✅ Complete |
+| **3** | Contextual Embeddings (BERT-style) | ⏳ Pending |
+| **4** | Pre-train 125M Model | ⏳ Pending |
 
-**Focus:** Multi-head attention, Transformer blocks, Training loop, Text generation
+**Focus:** Multi-head attention, Transformer blocks, Training loop, Text generation, Masked Language Modeling
 
 ---
 
@@ -63,9 +64,9 @@ You'll implement every component of an LLM pipeline from scratch:
 
 | Project | Topic | Status |
 |---------|-------|--------|
-| **4** | Supervised Fine-Tuning (SFT) | ⏳ Pending |
-| **5** | LoRA Fine-Tuning | ⏳ Pending |
-| **6** | DPO (Direct Preference Optimization) | ⏳ Pending |
+| **5** | Supervised Fine-Tuning (SFT) | ⏳ Pending |
+| **6** | LoRA Fine-Tuning | ⏳ Pending |
+| **7** | DPO (Direct Preference Optimization) | ⏳ Pending |
 
 **Focus:** Instruction formatting, Memory-efficient training, Preference alignment
 
@@ -75,9 +76,9 @@ You'll implement every component of an LLM pipeline from scratch:
 
 | Project | Topic | Speedup |
 |---------|-------|---------|
-| **7** | Mixed Precision Training & Inference | 2-4x ⚡ |
-| **8** | KV-Cache | 10-30x ⚡ |
-| **9** | Flash Attention | 2-4x ⚡ |
+| **8** | Mixed Precision Training & Inference | 2-4x ⚡ |
+| **9** | KV-Cache | 10-30x ⚡ |
+| **10** | Flash Attention | 2-4x ⚡ |
 
 **Papers:** Micikevicius 2018 • Transformer-XL • Flash Attention 1&2
 
@@ -87,10 +88,10 @@ You'll implement every component of an LLM pipeline from scratch:
 
 | Project | Topic | Speedup |
 |---------|-------|---------|
-| **10** | Prompt Caching | 5-50x ⚡ |
-| **11** | Speculative Decoding | 2-3x ⚡ |
-| **12** | Dynamic Batching | 3-10x ⚡ |
-| **13** | Paged Attention | Near-zero waste |
+| **11** | Prompt Caching | 5-50x ⚡ |
+| **12** | Speculative Decoding | 2-3x ⚡ |
+| **13** | Dynamic Batching | 3-10x ⚡ |
+| **14** | Paged Attention | Near-zero waste |
 
 **Papers:** SemCache • vLLM • Orca • Speculative Sampling
 
@@ -100,9 +101,9 @@ You'll implement every component of an LLM pipeline from scratch:
 
 | Project | Topic | Benefit |
 |---------|-------|---------|
-| **14** | Post-Training Quantization (PTQ) | 2-4x smaller 📦 |
-| **15** | KV-Cache Quantization | 50% cache reduction |
-| **16** | Quantization-Aware Training (QAT) | Better accuracy |
+| **15** | Post-Training Quantization (PTQ) | 2-4x smaller 📦 |
+| **16** | KV-Cache Quantization | 50% cache reduction |
+| **17** | Quantization-Aware Training (QAT) | Better accuracy |
 
 **Papers:** GPTQ • LLM.int8() • QAT (Jacob 2018)
 
@@ -112,9 +113,9 @@ You'll implement every component of an LLM pipeline from scratch:
 
 | Project | Topic | Reduction |
 |---------|-------|-----------|
-| **17** | Pruning (Structured & Unstructured) | 30-60% 📉 |
-| **18** | Knowledge Distillation | Smaller models |
-| **19** | Weight Sharing | 10-30% |
+| **18** | Pruning (Structured & Unstructured) | 30-60% 📉 |
+| **19** | Knowledge Distillation | Smaller models |
+| **20** | Weight Sharing | 10-30% |
 
 **Papers:** Wanda • Distilling Knowledge • ALBERT
 
@@ -124,9 +125,9 @@ You'll implement every component of an LLM pipeline from scratch:
 
 | Project | Topic | Complexity |
 |---------|-------|------------|
-| **20** | Sparse Attention | O(n√n) 📐 |
-| **21** | Mixture-of-Experts (MoE) | Same compute, more params |
-| **22** | Memory-Efficient Attention | 2-4x less memory |
+| **21** | Sparse Attention | O(n√n) 📐 |
+| **22** | Mixture-of-Experts (MoE) | Same compute, more params |
+| **23** | Memory-Efficient Attention | 2-4x less memory |
 
 **Papers:** Longformer • BigBird • Switch Transformers • Mixtral
 
@@ -136,8 +137,8 @@ You'll implement every component of an LLM pipeline from scratch:
 
 | Project | Topic | Outcome |
 |---------|-------|---------|
-| **23** | Tensor Parallelism | Multi-GPU training 🖥️ |
-| **24** | Pipeline Parallelism | Better GPU utilization |
+| **24** | Tensor Parallelism | Multi-GPU training 🖥️ |
+| **25** | Pipeline Parallelism | Better GPU utilization |
 
 **Papers:** Megatron-LM • GPipe • PipeDream
 
@@ -147,9 +148,9 @@ You'll implement every component of an LLM pipeline from scratch:
 
 | Project | Topic | Speedup |
 |---------|-------|---------|
-| **25** | Operator Fusion | 20-40% ⚡ |
-| **26** | Graph Optimization | 1.5-3x ⚡ |
-| **27** | Early Exit | 30-50% ⚡ |
+| **26** | Operator Fusion | 20-40% ⚡ |
+| **27** | Graph Optimization | 1.5-3x ⚡ |
+| **28** | Early Exit | 30-50% ⚡ |
 
 **Papers:** Triton • XLA • TVM • PABEE
 
@@ -159,9 +160,9 @@ You'll implement every component of an LLM pipeline from scratch:
 
 | Project | Topic | Outcome |
 |---------|-------|---------|
-| **28** | Model Serving Optimization | Production API 🌐 |
-| **29** | Docker Deployment | One-command deploy |
-| **30** | Interactive UI (Gradio) | User-friendly |
+| **29** | Model Serving Optimization | Production API 🌐 |
+| **30** | Docker Deployment | One-command deploy |
+| **31** | Interactive UI (Gradio) | User-friendly |
 
 ---
 
@@ -183,7 +184,7 @@ You'll implement every component of an LLM pipeline from scratch:
 
 | Phase | Focus | Projects | Duration |
 |:-----:|-------|----------|:--------:|
-| **1** | Foundation | Character GPT, BPE, Pre-training | Week 1 |
+| **1** | Foundation | Character GPT, BPE, Contextual Embeddings, Pre-training | Week 1 |
 | **2** | Fine-tuning | SFT, LoRA, DPO | Week 2 |
 | **3** | Core Inference Opt | Mixed Precision, KV-Cache, Flash Attention | Week 3 |
 | **4** | Advanced Inference | Prompt Cache, Speculative, Dynamic Batch, PagedAttn | Week 4 |
@@ -193,6 +194,7 @@ You'll implement every component of an LLM pipeline from scratch:
 | **8** | Parallelism | Tensor Parallelism, Pipeline Parallelism | Week 8 |
 | **9** | Compiler Opt | Operator Fusion, Graph Opt, Early Exit | Week 9 |
 | **10** | Deployment | Serving, Docker, Gradio | Week 10 |
+| | **Total** | **31 Projects** | **10 Weeks** |
 
 ---
 
@@ -202,53 +204,54 @@ You'll implement every component of an LLM pipeline from scratch:
 implementation/
 ├── phase1_foundation/
 │   ├── project1_minimal_gpt/       ✅ Complete
-│   ├── project2_tokenizer/         ⏳ Pending
-│   └── project3_pretrain/          ⏳ Pending
+│   ├── project2_tokenizer/         ✅ Complete
+│   ├── project3_contextual_embeddings/ ⏳ Pending
+│   └── project4_pretrain/          ⏳ Pending
 │
 ├── phase2_finetuning/
-│   ├── project4_sft/
-│   ├── project5_lora/
-│   └── project6_dpo/
+│   ├── project5_sft/
+│   ├── project6_lora/
+│   └── project7_dpo/
 │
 ├── phase3_core_inference/
-│   ├── project7_mixed_precision/
-│   ├── project8_kv_cache/
-│   └── project9_flash_attention/
+│   ├── project8_mixed_precision/
+│   ├── project9_kv_cache/
+│   └── project10_flash_attention/
 │
 ├── phase4_advanced_inference/
-│   ├── project10_prompt_caching/
-│   ├── project11_speculative_decoding/
-│   ├── project12_dynamic_batching/
-│   └── project13_paged_attention/
+│   ├── project11_prompt_caching/
+│   ├── project12_speculative_decoding/
+│   ├── project13_dynamic_batching/
+│   └── project14_paged_attention/
 │
 ├── phase5_quantization/
-│   ├── project14_ptq/
-│   ├── project15_kv_quantization/
-│   └── project16_qat/
+│   ├── project15_ptq/
+│   ├── project16_kv_quantization/
+│   └── project17_qat/
 │
 ├── phase6_compression/
-│   ├── project17_pruning/
-│   ├── project18_distillation/
-│   └── project19_weight_sharing/
+│   ├── project18_pruning/
+│   ├── project19_distillation/
+│   └── project20_weight_sharing/
 │
 ├── phase7_architecture/
-│   ├── project20_sparse_attention/
-│   ├── project21_moe/
-│   └── project22_memory_efficient/
+│   ├── project21_sparse_attention/
+│   ├── project22_moe/
+│   └── project23_memory_efficient/
 │
 ├── phase8_parallelism/
-│   ├── project23_tensor_parallelism/
-│   └── project24_pipeline_parallelism/
+│   ├── project24_tensor_parallelism/
+│   └── project25_pipeline_parallelism/
 │
 ├── phase9_compiler/
-│   ├── project25_operator_fusion/
-│   ├── project26_graph_optimization/
-│   └── project27_early_exit/
+│   ├── project26_operator_fusion/
+│   ├── project27_graph_optimization/
+│   └── project28_early_exit/
 │
 ├── phase10_deployment/
-│   ├── project28_serving/
-│   ├── project29_docker/
-│   └── project30_gradio/
+│   ├── project29_serving/
+│   ├── project30_docker/
+│   └── project31_gradio/
 │
 └── data/
     ├── shakespeare.txt
