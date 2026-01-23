@@ -43,7 +43,7 @@ You'll implement every component of an LLM pipeline from scratch:
 
 <div align="center">
 
-### 10 Phases • 31 Projects • From Zero to Production
+### 10 Phases • 32 Projects • From Zero to Production
 
 </div>
 
@@ -54,9 +54,10 @@ You'll implement every component of an LLM pipeline from scratch:
 | **1** | Character-Level GPT | ✅ Complete |
 | **2** | BPE Tokenizer | ✅ Complete |
 | **3** | Contextual Embeddings (BERT-style) | ✅ Complete |
+| **3B** | SimCSE (Sentence Embeddings) | ⏳ Pending |
 | **4** | Pre-train 125M Model | ⏳ Pending |
 
-**Focus:** Multi-head attention, Transformer blocks, Training loop, Text generation, Masked Language Modeling
+**Focus:** Multi-head attention, Transformer blocks, Training loop, Text generation, Masked Language Modeling, Contrastive Learning
 
 ---
 
@@ -194,7 +195,7 @@ You'll implement every component of an LLM pipeline from scratch:
 | **8** | Parallelism | Tensor Parallelism, Pipeline Parallelism | Week 8 |
 | **9** | Compiler Opt | Operator Fusion, Graph Opt, Early Exit | Week 9 |
 | **10** | Deployment | Serving, Docker, Gradio | Week 10 |
-| | **Total** | **31 Projects** | **10 Weeks** |
+| | **Total** | **32 Projects** | **10 Weeks** |
 
 ---
 
@@ -205,7 +206,8 @@ implementation/
 ├── phase1_foundation/
 │   ├── project1_minimal_gpt/       ✅ Complete
 │   ├── project2_tokenizer/         ✅ Complete
-│   ├── project3_contextual_embeddings/ ⏳ Pending
+│   ├── project3_contextual_embeddings/ ✅ Complete
+│   ├── project3b_simcse/           ⏳ Pending
 │   └── project4_pretrain/          ⏳ Pending
 │
 ├── phase2_finetuning/
