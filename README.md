@@ -53,7 +53,7 @@ You'll implement every component of an LLM pipeline from scratch:
 |---------|-------|--------|
 | **1** | Character-Level GPT | ✅ Complete |
 | **2** | BPE Tokenizer | ✅ Complete |
-| **3** | Contextual Embeddings (BERT-style) | ⏳ Pending |
+| **3** | Contextual Embeddings (BERT-style) | ✅ Complete |
 | **4** | Pre-train 125M Model | ⏳ Pending |
 
 **Focus:** Multi-head attention, Transformer blocks, Training loop, Text generation, Masked Language Modeling
