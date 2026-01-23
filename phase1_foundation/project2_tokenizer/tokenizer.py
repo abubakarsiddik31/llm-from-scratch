@@ -50,6 +50,8 @@ import pickle
 from collections import Counter
 from typing import Dict, List, Optional, Tuple
 
+from tqdm import tqdm
+
 import config
 
 
@@ -283,7 +285,10 @@ class BPETokenizer:
         # Calculate how many new tokens we can learn
         num_merges = vocab_size - len(config.SPECIAL_TOKENS) - len(chars)
 
-        print(f"Will learn {num_merges:,} merge operations...")
+        print(f"Will learn {num_merges:,} merge operations...\n")
+
+        # Create progress bar
+        pbar = tqdm(total=num_merges, desc="Training BPE", unit="merge")
 
         for merge_idx in range(num_merges):
             # ------------------------------------------------------------------
@@ -299,7 +304,7 @@ class BPETokenizer:
             pair_counts = self._get_pair_counts(words)
 
             if not pair_counts:
-                print(f"No more pairs to merge at iteration {merge_idx}")
+                tqdm.write(f"No more pairs to merge at iteration {merge_idx}")
                 break
 
             # ------------------------------------------------------------------
@@ -320,7 +325,7 @@ class BPETokenizer:
             Skip if below threshold (prevents learning noisy patterns).
             """
             if best_freq < min_frequency:
-                print(f"Best pair frequency {best_freq} below minimum {min_frequency}")
+                tqdm.write(f"Best pair frequency {best_freq} below minimum {min_frequency}")
                 break
 
             # ------------------------------------------------------------------
@@ -369,19 +374,16 @@ class BPETokenizer:
             # PROGRESS REPORTING
             # ------------------------------------------------------------------
 
-            # Adapt progress reporting frequency based on vocabulary size
-            # Small vocabs: more frequent updates, Large vocabs: less frequent
-            if num_merges < 10000:
-                report_interval = 500
-            elif num_merges < 50000:
-                report_interval = 1000
-            else:
-                report_interval = 5000
+            # Update progress bar with current merge info
+            pbar.set_postfix({
+                'merge': f"'{best_pair[0]}'+'{best_pair[1]}'→'{new_token}'",
+                'freq': f'{best_freq:,}',
+                'vocab': f'{len(self.vocab):,}'
+            })
+            pbar.update(1)
+            pbar.refresh()
 
-            if (merge_idx + 1) % report_interval == 0 or merge_idx == 0:
-                print(f"  Merge {merge_idx + 1:6d}/{num_merges}: "
-                      f"'{best_pair[0]}' + '{best_pair[1]}' → '{new_token}' "
-                      f"(freq={best_freq:,})")
+        pbar.close()
 
         print(f"\nTraining complete!")
         print(f"  Final vocabulary size: {len(self.vocab):,}")
