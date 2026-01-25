@@ -44,12 +44,14 @@ try:
 except ImportError:
     print("Installing required package: requests")
     import subprocess
+
     subprocess.check_call([sys.executable, "-m", "pip", "install", "requests"])
     import requests
 
 # Try to import datasets library (alternative method)
 try:
     from datasets import load_dataset
+
     HAS_DATASETS = True
 except ImportError:
     HAS_DATASETS = False
@@ -65,15 +67,15 @@ WIKIPEDIA_DUMPS = {
         "url": "https://dumps.wikimedia.org/enwiki/latest/",
         "files": {
             "small": "enwiki-latest-abstract.xml.gz",  # ~500MB
-        }
+        },
     }
 }
 
 # Size presets (in characters, approximately)
 SIZE_PRESETS = {
-    "small": 100 * 1024 * 1024,      # 100 MB
-    "medium": 1024 * 1024 * 1024,    # 1 GB
-    "large": 10 * 1024 * 1024 * 1024  # 10 GB
+    "small": 100 * 1024 * 1024,  # 100 MB
+    "medium": 1024 * 1024 * 1024,  # 1 GB
+    "large": 10 * 1024 * 1024 * 1024,  # 10 GB
 }
 
 
@@ -106,11 +108,11 @@ def download_with_progress(url: str, output_path: str) -> int:
     except requests.RequestException as e:
         raise RuntimeError(f"Failed to download from {url}: {e}")
 
-    total_size = int(response.headers.get('content-length', 0))
+    total_size = int(response.headers.get("content-length", 0))
     block_size = 8192
     downloaded = 0
 
-    with open(output_path, 'wb') as f:
+    with open(output_path, "wb") as f:
         for chunk in response.iter_content(chunk_size=block_size):
             if chunk:
                 f.write(chunk)
@@ -121,10 +123,13 @@ def download_with_progress(url: str, output_path: str) -> int:
                     percent = downloaded / total_size * 100
                     mb_downloaded = downloaded / 1024 / 1024
                     mb_total = total_size / 1024 / 1024
-                    print(f"\rProgress: {percent:.1f}% ({mb_downloaded:.1f}/{mb_total:.1f} MB)", end='')
+                    print(
+                        f"\rProgress: {percent:.1f}% ({mb_downloaded:.1f}/{mb_total:.1f} MB)",
+                        end="",
+                    )
                 else:
                     mb_downloaded = downloaded / 1024 / 1024
-                    print(f"\rDownloaded: {mb_downloaded:.1f} MB", end='')
+                    print(f"\rDownloaded: {mb_downloaded:.1f} MB", end="")
 
     print()  # New line after progress bar
 
@@ -142,7 +147,9 @@ def download_with_progress(url: str, output_path: str) -> int:
 # =============================================================================
 
 
-def extract_text_from_wikipedia(xml_content: str, max_chars: Optional[int] = None) -> str:
+def extract_text_from_wikipedia(
+    xml_content: str, max_chars: Optional[int] = None
+) -> str:
     """
     Extract clean text from Wikipedia XML dump.
 
@@ -165,7 +172,7 @@ def extract_text_from_wikipedia(xml_content: str, max_chars: Optional[int] = Non
     """
     # Extract text between <text> tags
     # Wikipedia uses these tags for article content
-    text_pattern = r'<text[^>]*>(.*?)</text>'
+    text_pattern = r"<text[^>]*>(.*?)</text>"
     matches = re.findall(text_pattern, xml_content, re.DOTALL)
 
     # Clean each match
@@ -174,34 +181,34 @@ def extract_text_from_wikipedia(xml_content: str, max_chars: Optional[int] = Non
 
     for match in matches:
         # Decode HTML entities
-        text = match.replace('&lt;', '<').replace('&gt;', '>')
-        text = text.replace('&amp;', '&').replace('&quot;', '"')
-        text = text.replace('&#39;', "'")
+        text = match.replace("&lt;", "<").replace("&gt;", ">")
+        text = text.replace("&amp;", "&").replace("&quot;", '"')
+        text = text.replace("&#39;", "'")
 
         # Remove wiki markup
         # Remove templates {{...}}
-        text = re.sub(r'\{\{[^}]*\}\}', '', text)
+        text = re.sub(r"\{\{[^}]*\}\}", "", text)
         # Remove links [[...|...]] or [[...]]
-        text = re.sub(r'\[\[([^]|]*\|)?([^]]*)\]\]', r'\2', text)
+        text = re.sub(r"\[\[([^]|]*\|)?([^]]*)\]\]", r"\2", text)
         # Remove headers ==...==
-        text = re.sub(r'==+([^=]+)==+', r'\1', text)
+        text = re.sub(r"==+([^=]+)==+", r"\1", text)
         # Remove '''''', '''', '' formatting
-        text = re.sub(r"'''''", '', text)
-        text = re.sub(r"'''", '', text)
-        text = re.sub(r"''", '', text)
+        text = re.sub(r"'''''", "", text)
+        text = re.sub(r"'''", "", text)
+        text = re.sub(r"''", "", text)
         # Remove HTML tags
-        text = re.sub(r'<[^>]+>', '', text)
+        text = re.sub(r"<[^>]+>", "", text)
         # Remove references <ref>...</ref>
-        text = re.sub(r'<ref[^>]*>.*?</ref>', '', text, flags=re.DOTALL)
+        text = re.sub(r"<ref[^>]*>.*?</ref>", "", text, flags=re.DOTALL)
         # Remove file links
-        text = re.sub(r'\[\[File:.*?\]\]', '', text, flags=re.DOTALL)
+        text = re.sub(r"\[\[File:.*?\]\]", "", text, flags=re.DOTALL)
         # Remove image links
-        text = re.sub(r'\[\[Image:.*?\]\]', '', text, flags=re.DOTALL)
+        text = re.sub(r"\[\[Image:.*?\]\]", "", text, flags=re.DOTALL)
         # Remove category links
-        text = re.sub(r'\[\[Category:.*?\]\]', '', text, flags=re.DOTALL)
+        text = re.sub(r"\[\[Category:.*?\]\]", "", text, flags=re.DOTALL)
 
         # Clean whitespace
-        text = re.sub(r'\s+', ' ', text)
+        text = re.sub(r"\s+", " ", text)
         text = text.strip()
 
         if text and len(text) > 50:  # Minimum length threshold
@@ -211,13 +218,11 @@ def extract_text_from_wikipedia(xml_content: str, max_chars: Optional[int] = Non
             if max_chars and total_chars >= max_chars:
                 break
 
-    return '\n\n'.join(cleaned_texts)
+    return "\n\n".join(cleaned_texts)
 
 
 def process_wikipedia_dump(
-    dump_path: str,
-    output_path: str,
-    max_chars: Optional[int] = None
+    dump_path: str, output_path: str, max_chars: Optional[int] = None
 ) -> None:
     """
     Process Wikipedia XML dump into clean text file.
@@ -234,9 +239,9 @@ def process_wikipedia_dump(
     print()
 
     # Open gzip file
-    opener = gzip.open if dump_path.endswith('.gz') else open
+    opener = gzip.open if dump_path.endswith(".gz") else open
 
-    with opener(dump_path, 'rt', encoding='utf-8', errors='ignore') as f:
+    with opener(dump_path, "rt", encoding="utf-8", errors="ignore") as f:
         # Read in chunks to handle large files
         chunk_size = 1024 * 1024  # 1MB chunks
         buffer = ""
@@ -253,10 +258,10 @@ def process_wikipedia_dump(
 
             # Process complete articles when possible
             # Wikipedia articles end with </page>
-            while '</page>' in buffer:
+            while "</page>" in buffer:
                 # Split at first complete page
-                parts = buffer.split('</page>', 1)
-                page_content = parts[0] + '</page>'
+                parts = buffer.split("</page>", 1)
+                page_content = parts[0] + "</page>"
                 buffer = parts[1] if len(parts) > 1 else ""
 
                 # Extract text from this page
@@ -267,7 +272,10 @@ def process_wikipedia_dump(
 
                     # Show progress
                     mb_chars = total_chars / 1024 / 1024
-                    print(f"\rExtracted: {mb_chars:.1f} MB, {len(extracted_texts):,} articles", end='')
+                    print(
+                        f"\rExtracted: {mb_chars:.1f} MB, {len(extracted_texts):,} articles",
+                        end="",
+                    )
 
                     if max_chars and total_chars >= max_chars:
                         break
@@ -284,12 +292,12 @@ def process_wikipedia_dump(
     print()  # New line after progress
 
     # Combine and write
-    final_text = '\n\n'.join(extracted_texts)
+    final_text = "\n\n".join(extracted_texts)
 
     # Create output directory if needed
-    os.makedirs(os.path.dirname(output_path) or '.', exist_ok=True)
+    os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
 
-    with open(output_path, 'w', encoding='utf-8') as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(final_text)
 
     mb_size = len(final_text) / 1024 / 1024
@@ -347,10 +355,10 @@ def download_wikitext_huggingface(output_path: str, size: str = "medium") -> Non
         text = "\n\n".join(example["text"] for example in dataset)
 
         # Create output directory if needed
-        os.makedirs(os.path.dirname(output_path) or '.', exist_ok=True)
+        os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
 
         # Write to output
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write(text)
 
         mb_size = len(text) / 1024 / 1024
@@ -402,8 +410,9 @@ def download_wikitext_direct(output_path: str, size: str = "medium") -> None:
     # Extract
     print("Extracting...")
     import zipfile
+
     try:
-        with zipfile.ZipFile(temp_zip, 'r') as zip_ref:
+        with zipfile.ZipFile(temp_zip, "r") as zip_ref:
             zip_ref.extractall(os.path.dirname(temp_zip))
     except zipfile.BadZipFile:
         os.remove(temp_zip)
@@ -422,11 +431,11 @@ def download_wikitext_direct(output_path: str, size: str = "medium") -> None:
     raw_file = raw_files[0]
 
     # Read and combine (using only training data)
-    with open(raw_file, 'r', encoding='utf-8') as f:
+    with open(raw_file, "r", encoding="utf-8") as f:
         text = f.read()
 
     # Write to output
-    with open(output_path, 'w', encoding='utf-8') as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(text)
 
     # Cleanup
@@ -437,7 +446,9 @@ def download_wikitext_direct(output_path: str, size: str = "medium") -> None:
     print(f"Saved to: {output_path}")
 
 
-def download_wikitext(output_path: str, size: str = "medium", method: str = "auto") -> None:
+def download_wikitext(
+    output_path: str, size: str = "medium", method: str = "auto"
+) -> None:
     """
     Download WikiText dataset (pre-processed Wikipedia).
 
@@ -477,7 +488,7 @@ def download_wikipedia_data(
     size: str = "medium",
     output_path: Optional[str] = None,
     source: str = "wikitext",
-    method: str = "auto"
+    method: str = "auto",
 ) -> str:
     """
     Download Wikipedia data for BPE training.
@@ -504,7 +515,7 @@ def download_wikipedia_data(
         output_path = os.path.join(
             os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
             "data",
-            "wikipedia_train.txt"
+            "wikipedia_train.txt",
         )
 
     print("=" * 70)
@@ -549,25 +560,25 @@ def main():
     EXAMPLES:
     ---------
     # Download small WikiText dataset (good for testing)
-    python download_data.py --size small
+    uv run python download_data.py --size small
 
     # Download medium WikiText dataset (good for training)
-    python download_data.py --size medium
+    uv run python download_data.py --size medium
 
     # Specify output path
-    python download_data.py --size medium --output /path/to/corpus.txt
+    uv run python download_data.py --size medium --output /path/to/corpus.txt
 
     # Use raw Wikipedia dump
-    python download_data.py --source dump --size medium
+    uv run python download_data.py --source dump --size medium
     """
     parser = argparse.ArgumentParser(
         description="Download Wikipedia data for BPE tokenizer training",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python download_data.py --size small
-  python download_data.py --size medium
-  python download_data.py --output /path/to/corpus.txt
+  uv run  python download_data.py --size small
+  uv run  python download_data.py --size medium
+  uv run  python download_data.py --output /path/to/corpus.txt
 
 Sizes:
   small   - WikiText-2 (~10 MB text, good for testing)
@@ -577,22 +588,20 @@ Sizes:
 Sources:
   wikitext - Pre-processed WikiText dataset (recommended)
   dump     - Raw Wikipedia dump (experimental)
-        """
+        """,
     )
 
     parser.add_argument(
-        "--size", "-s",
+        "--size",
+        "-s",
         type=str,
         default="medium",
         choices=["small", "medium", "large"],
-        help="Dataset size (default: medium)"
+        help="Dataset size (default: medium)",
     )
 
     parser.add_argument(
-        "--output", "-o",
-        type=str,
-        default=None,
-        help="Output file path"
+        "--output", "-o", type=str, default=None, help="Output file path"
     )
 
     parser.add_argument(
@@ -600,25 +609,23 @@ Sources:
         type=str,
         default="wikitext",
         choices=["wikitext", "dump"],
-        help="Data source (default: wikitext)"
+        help="Data source (default: wikitext)",
     )
 
     parser.add_argument(
-        "--method", "-m",
+        "--method",
+        "-m",
         type=str,
         default="auto",
         choices=["auto", "huggingface", "direct"],
         help="Download method: auto (try huggingface, fallback to direct), "
-             "huggingface (requires datasets library), or direct (HTTP download)"
+        "huggingface (requires datasets library), or direct (HTTP download)",
     )
 
     args = parser.parse_args()
 
     download_wikipedia_data(
-        size=args.size,
-        output_path=args.output,
-        source=args.source,
-        method=args.method
+        size=args.size, output_path=args.output, source=args.source, method=args.method
     )
 
 

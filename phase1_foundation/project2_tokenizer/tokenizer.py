@@ -260,15 +260,20 @@ class BPETokenizer:
 
         """
         Convert text to list of characters for processing.
-
+        
+        IMPORTANT: We treat the entire corpus as a single sequence of tokens
+        (characters, including spaces) to allow BPE merges to cross word
+        boundaries (e.g., learning " the").
+        
         Example:
-        text = "hello"
-        chars = ['h', 'e', 'l', 'l', 'o']
-
-        We'll repeatedly merge adjacent pairs in this list.
+        text = "hello world"
+        tokens = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+        words = [tokens] (list of one long sequence)
         """
-        # Represent as list of characters (with spaces as explicit tokens)
-        words = [list(word) for word in text.split()]
+        # Represent as list of characters (including spaces)
+        tokens = list(text)
+        # Wrap in a list for the _get_pair_counts and _apply_merge structure
+        words = [tokens]
 
         # =======================================================================
         # STEP 3: ITERATIVE MERGING
@@ -521,58 +526,42 @@ class BPETokenizer:
 
         Example:
             tokenizer.encode("hello world")
-            → [45, 123]  # (assuming 'hello' has ID 45, 'world' has ID 123)
+            → [45, 123, 11]  # (assuming 'hello' has ID 45, ' ' ID 123, 'world' ID 11)
+
+
         """
-        # Split into words (preserve spaces by re-joining)
-        words = text.split()
+        # Start with character-level representation of the entire text.
+        # Since the training process included spaces, we can treat the whole
+        # text as one sequence of tokens to be merged.
+        tokens = list(text)
 
+        # Apply learned merges greedily, in the order they were learned.
+        # We reuse the merge function logic, but since it's a list operation,
+        # we do it manually on the single token list.
+        # NOTE: self._apply_merge expects List[List[str]], so we must adapt.
+        current_tokens_list = [tokens]
+        
+        # Apply all learned merges sequentially
+        for pair in self.merges:
+            current_tokens_list = self._apply_merge(current_tokens_list, pair)
+
+        final_tokens = current_tokens_list[0] # Get the single sequence back
+
+        # Convert final tokens to IDs
         token_ids = []
-
-        for word in words:
-            # Start with character-level representation
-            tokens = list(word)
-
-            # Apply learned merges greedily
-            while len(tokens) > 1:
-                # Find the best merge we can apply
-                merge_applied = False
-
-                for pair in self.merges:
-                    # Check if this pair exists in tokens
-                    for i in range(len(tokens) - 1):
-                        if tokens[i] == pair[0] and tokens[i + 1] == pair[1]:
-                            # Apply merge
-                            new_token = pair[0] + pair[1]
-                            tokens = tokens[:i] + [new_token] + tokens[i + 2:]
-                            merge_applied = True
-                            break
-
-                    if merge_applied:
-                        break
-
-                # If no merge applied, we're done with this word
-                if not merge_applied:
-                    break
-
-            # Convert tokens to IDs
-            for token in tokens:
-                if token in self.vocab:
-                    token_ids.append(self.vocab[token])
-                else:
-                    # Fallback: encode as individual characters
-                    for char in token:
-                        if char in self.vocab:
-                            token_ids.append(self.vocab[char])
-                        else:
-                            # Unknown character - use UNK token
-                            token_ids.append(config.SPECIAL_TOKENS["<UNK>"])
-
-            # Add space token between words (except last)
-            token_ids.append(config.SPECIAL_TOKENS["<PAD>"])
-
-        # Remove trailing space token
-        if token_ids and token_ids[-1] == config.SPECIAL_TOKENS["<PAD>"]:
-            token_ids.pop()
+        for token in final_tokens:
+            if token in self.vocab:
+                token_ids.append(self.vocab[token])
+            else:
+                # Fallback: token not in final vocabulary (should be rare)
+                # This could happen if a character or a subword was trained in a
+                # different setting. We encode as individual characters/UNK.
+                for char in token:
+                    if char in self.vocab:
+                        token_ids.append(self.vocab[char])
+                    else:
+                        # Unknown character - use UNK token
+                        token_ids.append(config.SPECIAL_TOKENS["<UNK>"])
 
         return token_ids
 
@@ -625,13 +614,11 @@ class BPETokenizer:
                 token = self.inverse_vocab[token_id]
 
                 # Handle special tokens
-                if token == "<PAD>":
-                    text_parts.append(" ")
+                if token in ["<PAD>", "<BOS>", "<EOS>"]:
+                    # Skip padding and control tokens in output
+                    continue
                 elif token == "<UNK>":
                     text_parts.append("<UNK>")
-                elif token in ["<BOS>", "<EOS>"]:
-                    # Skip control tokens in output
-                    continue
                 else:
                     text_parts.append(token)
             else:
