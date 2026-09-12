@@ -127,7 +127,7 @@ def test_masking():
     PAPER REFERENCE: BERT (2018), Section 3.1
 
     From BERT paper:
-    "80% of the time: replace with enko token
+    "80% of the time: replace with [MASK] token
      10% of the time: replace with random token
      10% of the time: keep original token"
     """
@@ -141,7 +141,7 @@ def test_masking():
     vocab["[UNK]"] = 1
     vocab["[CLS]"] = 2
     vocab["[SEP]"] = 3
-    vocab["ে"] = 4
+    vocab["[MASK]"] = 4
 
     # Create test sequence
     token_ids = list(range(5, 25))  # Non-special tokens

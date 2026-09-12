@@ -692,7 +692,7 @@ def main():
             input_ids,
             tokenizer["vocab"],
             config.MLM_PROB,
-            tokenizer["vocab"].get("ে", 4),
+            tokenizer["vocab"].get("[MASK]", 4),
         )
         train_input_ids[train_input_ids.index(input_ids)] = masked
         train_masked_labels.append(labels)
@@ -703,7 +703,7 @@ def main():
             input_ids,
             tokenizer["vocab"],
             config.MLM_PROB,
-            tokenizer["vocab"].get("ে", 4),
+            tokenizer["vocab"].get("[MASK]", 4),
         )
         val_input_ids[val_input_ids.index(input_ids)] = masked
         val_masked_labels.append(labels)
