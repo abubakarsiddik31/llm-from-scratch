@@ -260,21 +260,34 @@ class BPETokenizer:
         # =======================================================================
 
         """
-        Convert text to list of characters for processing.
-        
-        IMPORTANT: We treat the entire corpus as a single sequence of tokens
-        (characters, including spaces) to allow BPE merges to cross word
-        boundaries (e.g., learning " the").
-        
+        Convert text to a list of distinct word token-lists with counts.
+
+        IMPLEMENTATION NOTE (performance):
+        The corpus is too large to rescan on every merge. We represent it
+        as DISTINCT words with multiplicities (Counter), so each merge
+        iterates over ~50k unique words instead of millions of characters.
+        Words are normalized to single spaces, and every word except the
+        last carries a TRAILING space, so BPE merges can still absorb the
+        word boundary (e.g., learning "the " as one token) exactly as
+        single-sequence BPE would - just without cross-newline merges.
+
         Example:
-        text = "hello world"
-        tokens = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
-        words = [tokens] (list of one long sequence)
+        text = "hello hello world"
+        word_counts = {"hello ": 1, "world": 1}
+        words = [['h', 'e', 'l', 'l', 'o', ' '], ['w', 'o', 'r', 'l', 'd']]
         """
-        # Represent as list of characters (including spaces)
-        tokens = list(text)
-        # Wrap in a list for the _get_pair_counts and _apply_merge structure
-        words = [tokens]
+        normalized = " ".join(text.split())
+        raw_words = normalized.split(" ")
+        word_counts = Counter()
+        for w in raw_words[:-1]:
+            if w:
+                word_counts[w + " "] += 1
+        if raw_words and raw_words[-1]:
+            word_counts[raw_words[-1]] += 1
+
+        words = [list(w) for w in word_counts.keys()]
+        word_counts_list = list(word_counts.values())
+        print(f"Corpus has {len(words):,} distinct words")
 
         # =======================================================================
         # STEP 3: ITERATIVE MERGING
@@ -307,7 +320,7 @@ class BPETokenizer:
             Example words: [['h', 'e', 'l', 'l', 'o'], ['w', 'o', 'r', 'l', 'd']]
             Pairs: ('h','e'): 1, ('e','l'): 1, ('l','l'): 1, ('l','o'): 2, ...
             """
-            pair_counts = self._get_pair_counts(words)
+            pair_counts = self._get_pair_counts(words, counts=word_counts_list)
 
             if not pair_counts:
                 tqdm.write(f"No more pairs to merge at iteration {merge_idx}")
@@ -399,15 +412,20 @@ class BPETokenizer:
     # TRAINING HELPERS
     # ==========================================================================
 
-    def _get_pair_counts(self, words: List[List[str]]) -> Counter:
+    def _get_pair_counts(
+        self, words: List[List[str]], counts: List[int] = None
+    ) -> Counter:
         """
         Count frequency of all adjacent pairs.
 
         From BPE paper: "Count the frequency of each adjacent pair"
 
         Args:
-            words: List of words, each word is list of tokens
+            words: List of DISTINCT words, each word is list of tokens
                    Example: [['h', 'e', 'll', 'o'], ['w', 'o', 'r', 'l', 'd']]
+            counts: Optional multiplicity of each word (corpus frequency).
+                    When provided, each pair occurrence is weighted by its
+                    word's count; when None every word counts once.
 
         Returns:
             Counter mapping (token_a, token_b) → frequency
@@ -419,15 +437,18 @@ class BPETokenizer:
         ALGORITHM:
         For each word:
             For each adjacent pair in word:
-                Increment count for that pair
+                Increment count for that pair (weighted by word count)
         """
+        if counts is None:
+            counts = [1] * len(words)
+
         pair_counts = Counter()
 
-        for word in words:
+        for word, count in zip(words, counts):
             # Get all adjacent pairs in this word
             for i in range(len(word) - 1):
                 pair = (word[i], word[i + 1])
-                pair_counts[pair] += 1
+                pair_counts[pair] += count
 
         return pair_counts
 

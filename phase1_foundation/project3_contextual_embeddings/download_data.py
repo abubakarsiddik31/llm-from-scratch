@@ -95,7 +95,7 @@ def download_wikitext(size: str = "small", save_path: Optional[str] = None):
 
         # Load dataset
         print("Downloading dataset from Hugging Face...")
-        dataset = load_dataset("wikitext", config_name, split="train")
+        dataset = load_dataset("Salesforce/wikitext", config_name, split="train")
 
         print(f"✓ Downloaded {len(dataset):,} examples")
 
@@ -121,7 +121,7 @@ def download_wikitext(size: str = "small", save_path: Optional[str] = None):
 
         # Download validation data
         print("\nDownloading validation data...")
-        val_dataset = load_dataset("wikitext", config_name, split="validation")
+        val_dataset = load_dataset("Salesforce/wikitext", config_name, split="validation")
         val_text = "\n".join(
             example["text"] for example in val_dataset if example["text"].strip()
         )
@@ -134,7 +134,7 @@ def download_wikitext(size: str = "small", save_path: Optional[str] = None):
 
         # Download test data
         print("\nDownloading test data...")
-        test_dataset = load_dataset("wikitext", config_name, split="test")
+        test_dataset = load_dataset("Salesforce/wikitext", config_name, split="test")
         test_text = "\n".join(
             example["text"] for example in test_dataset if example["text"].strip()
         )

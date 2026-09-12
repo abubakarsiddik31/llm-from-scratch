@@ -405,7 +405,7 @@ def download_wikitext_huggingface(output_path: str, size: str = "medium") -> Non
     try:
         # Load dataset (only training split)
         # Use dataset_name directly as the config name
-        dataset = load_dataset("wikitext", dataset_name, split="train")
+        dataset = load_dataset("Salesforce/wikitext", dataset_name, split="train")
 
         # Combine all text
         print("Processing text...")
