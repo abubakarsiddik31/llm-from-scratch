@@ -10,6 +10,8 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+📖 **Read it as a book:** [https://abubakarsiddik31.github.io/llm-from-scratch/](https://abubakarsiddik31.github.io/llm-from-scratch/) *(built with mdBook from [`book/`](book/))*
+
 [Projects](#-roadmap) • [Getting Started](#-getting-started) • [Directory Structure](#-directory-structure)
 
 </div>

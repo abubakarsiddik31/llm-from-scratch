@@ -1,0 +1,33 @@
+[book]
+title = "Hands-On LLM Implementation"
+authors = ["Abu Bakar Siddik"]
+description = "Build everything from scratch — a practical, implementation-first guide to training and deploying Large Language Models"
+src = "src"
+language = "en"
+multilingual = false
+
+[build]
+build-dir = "book"
+create-missing = false
+
+[preprocessor.index]
+[preprocessor.links]
+
+[output.html]
+default-theme = "rust"
+preferred-dark-theme = "ayu"
+git-repository-url = "https://github.com/abubakarsiddik31/llm-from-scratch"
+edit-url-template = "https://github.com/abubakarsiddik31/llm-from-scratch/edit/main/book/{path}"
+site-url = "/llm-from-scratch/"
+cname = ""
+additional-css = ["src/custom.css"]
+
+[output.html.search]
+enable = true
+limit-results = 20
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 2
+boost-paragraph = 1
+expand = true
+heading-split-level = 2

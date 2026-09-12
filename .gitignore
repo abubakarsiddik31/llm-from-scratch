@@ -171,3 +171,6 @@ instance/
 !.gitignore
 !README.md
 !pyproject.toml
+
+# mdBook build output
+book/book/
