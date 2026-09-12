@@ -4,7 +4,6 @@ authors = ["Abu Bakar Siddik"]
 description = "Build everything from scratch — a practical, implementation-first guide to training and deploying Large Language Models"
 src = "src"
 language = "en"
-multilingual = false
 
 [build]
 build-dir = "book"
