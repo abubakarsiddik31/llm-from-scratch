@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 400" font-family="Segoe UI, system-ui, -apple-system, sans-serif">
+  <rect width="840" height="400" rx="12" fill="#fcfcfa"/>
+  <text x="420" y="42" text-anchor="middle" font-size="21" font-weight="600" fill="#1e293b">Temperature and top-k reshape the next-token distribution</text>
+  <text x="420" y="66" text-anchor="middle" font-size="13.5" fill="#64748b">The bars are candidate next tokens, tallest = most likely. Same model, three sampling settings.</text>
+
+  <!-- Panel 1: temperature 0.5 (sharp) -->
+  <text x="160" y="102" text-anchor="middle" font-size="15" font-weight="600" fill="#1e293b">temperature 0.5</text>
+  <g fill="#2563eb">
+    <rect x="70"  y="120" width="22" height="170"/>
+    <rect x="97"  y="230" width="22" height="60"/>
+    <rect x="124" y="265" width="22" height="25"/>
+    <rect x="151" y="280" width="22" height="10"/>
+    <rect x="178" y="284" width="22" height="6"/>
+    <rect x="205" y="286" width="22" height="4"/>
+    <rect x="232" y="287" width="22" height="3"/>
+  </g>
+  <line x1="60" y1="290" x2="265" y2="290" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="162" y="316" text-anchor="middle" font-size="13" fill="#64748b">dividing logits by &lt;1 sharpens: </text>
+  <text x="162" y="334" text-anchor="middle" font-size="13" fill="#64748b">safe, repetitive output</text>
+
+  <!-- Panel 2: temperature 2.0 (flat) -->
+  <text x="430" y="102" text-anchor="middle" font-size="15" font-weight="600" fill="#1e293b">temperature 2.0</text>
+  <g fill="#2563eb">
+    <rect x="340" y="210" width="22" height="80"/>
+    <rect x="367" y="220" width="22" height="70"/>
+    <rect x="394" y="228" width="22" height="62"/>
+    <rect x="421" y="234" width="22" height="56"/>
+    <rect x="448" y="238" width="22" height="52"/>
+    <rect x="475" y="241" width="22" height="49"/>
+    <rect x="502" y="245" width="22" height="45"/>
+  </g>
+  <line x1="330" y1="290" x2="535" y2="290" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="432" y="316" text-anchor="middle" font-size="13" fill="#64748b">dividing by &gt;1 flattens:</text>
+  <text x="432" y="334" text-anchor="middle" font-size="13" fill="#64748b">riskier, more diverse output</text>
+
+  <!-- Panel 3: top-k -->
+  <text x="700" y="102" text-anchor="middle" font-size="15" font-weight="600" fill="#1e293b">top-k = 4</text>
+  <g fill="#2563eb">
+    <rect x="610" y="170" width="22" height="120"/>
+    <rect x="637" y="210" width="22" height="80"/>
+    <rect x="664" y="235" width="22" height="55"/>
+    <rect x="691" y="255" width="22" height="35"/>
+  </g>
+  <g fill="#e2e8f0">
+    <rect x="718" y="265" width="22" height="25"/>
+    <rect x="745" y="272" width="22" height="18"/>
+    <rect x="772" y="278" width="22" height="12"/>
+  </g>
+  <line x1="601" y1="262" x2="806" y2="262" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <text x="806" y="252" text-anchor="end" font-size="12.5" fill="#dc2626">cut-off</text>
+  <line x1="600" y1="290" x2="805" y2="290" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="702" y="316" text-anchor="middle" font-size="13" fill="#64748b">sample only from the k most likely</text>
+  <text x="702" y="334" text-anchor="middle" font-size="13" fill="#64748b">tokens; the gray tail is excluded</text>
+
+  <text x="420" y="378" text-anchor="middle" font-size="13.5" fill="#64748b">In generate.py: logits / temperature, mask everything outside the top k, softmax, sample.</text>
+</svg>

@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 Hands-On LLM Implementation
+# Hands-On LLM Implementation
 
 ### Build everything from scratch. Ship to production.
 
@@ -18,19 +18,19 @@
 
 ---
 
-## 📋 Overview
+## Overview
 
-This roadmap is for those who **understand the theory** and want to **build**.
+This roadmap is for people who **understand the theory** and want to **build**.
 
 You'll implement every component of an LLM pipeline from scratch:
 
-> Tokenization → Pre-training → Fine-tuning → Optimization → Production Deployment
+> **Tokenization → Pre-training → Fine-tuning → Optimization → Production Deployment**
 
-**Philosophy:** Learn by doing. Each project builds on the previous one, culminating in a fully deployed LLM application.
+**Philosophy:** learn by doing. Each project builds on the previous one, and the last one is a fully deployed LLM application.
 
 ---
 
-## 🎯 Prerequisites
+## Prerequisites
 
 | Requirement | Details |
 |-------------|---------|
@@ -41,7 +41,7 @@ You'll implement every component of an LLM pipeline from scratch:
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
 <div align="center">
 
@@ -49,7 +49,7 @@ You'll implement every component of an LLM pipeline from scratch:
 
 </div>
 
-### Phase 1️⃣ Foundation — Build Your First LLM
+### Phase 1 — Foundation: Build Your First LLM
 
 | Project | Topic | Status |
 |---------|-------|--------|
@@ -63,7 +63,7 @@ You'll implement every component of an LLM pipeline from scratch:
 
 ---
 
-### Phase 2️⃣ Fine-Tuning
+### Phase 2 — Fine-Tuning
 
 | Project | Topic | Status |
 |---------|-------|--------|
@@ -75,36 +75,36 @@ You'll implement every component of an LLM pipeline from scratch:
 
 ---
 
-### Phase 3️⃣ Core Inference Optimizations
+### Phase 3 — Core Inference Optimizations
 
 | Project | Topic | Speedup |
 |---------|-------|---------|
-| **8** | Mixed Precision Training & Inference | 2-4x ⚡ |
-| **9** | KV-Cache | 10-30x ⚡ |
-| **10** | Flash Attention | 2-4x ⚡ |
+| **8** | Mixed Precision Training & Inference | 2-4x |
+| **9** | KV-Cache | 10-30x |
+| **10** | Flash Attention | 2-4x |
 
 **Papers:** Micikevicius 2018 • Transformer-XL • Flash Attention 1&2
 
 ---
 
-### Phase 4️⃣ Advanced Inference Optimizations
+### Phase 4 — Advanced Inference Optimizations
 
 | Project | Topic | Speedup |
 |---------|-------|---------|
-| **11** | Prompt Caching | 5-50x ⚡ |
-| **12** | Speculative Decoding | 2-3x ⚡ |
-| **13** | Dynamic Batching | 3-10x ⚡ |
+| **11** | Prompt Caching | 5-50x |
+| **12** | Speculative Decoding | 2-3x |
+| **13** | Dynamic Batching | 3-10x |
 | **14** | Paged Attention | Near-zero waste |
 
 **Papers:** SemCache • vLLM • Orca • Speculative Sampling
 
 ---
 
-### Phase 5️⃣ Quantization
+### Phase 5 — Quantization
 
 | Project | Topic | Benefit |
 |---------|-------|---------|
-| **15** | Post-Training Quantization (PTQ) | 2-4x smaller 📦 |
+| **15** | Post-Training Quantization (PTQ) | 2-4x smaller |
 | **16** | KV-Cache Quantization | 50% cache reduction |
 | **17** | Quantization-Aware Training (QAT) | Better accuracy |
 
@@ -112,11 +112,11 @@ You'll implement every component of an LLM pipeline from scratch:
 
 ---
 
-### Phase 6️⃣ Model Compression
+### Phase 6 — Model Compression
 
 | Project | Topic | Reduction |
 |---------|-------|-----------|
-| **18** | Pruning (Structured & Unstructured) | 30-60% 📉 |
+| **18** | Pruning (Structured & Unstructured) | 30-60% |
 | **19** | Knowledge Distillation | Smaller models |
 | **20** | Weight Sharing | 10-30% |
 
@@ -124,11 +124,11 @@ You'll implement every component of an LLM pipeline from scratch:
 
 ---
 
-### Phase 7️⃣ Advanced Architecture
+### Phase 7 — Advanced Architecture
 
 | Project | Topic | Complexity |
 |---------|-------|------------|
-| **21** | Sparse Attention | O(n√n) 📐 |
+| **21** | Sparse Attention | O(n√n) |
 | **22** | Mixture-of-Experts (MoE) | Same compute, more params |
 | **23** | Memory-Efficient Attention | 2-4x less memory |
 
@@ -136,54 +136,40 @@ You'll implement every component of an LLM pipeline from scratch:
 
 ---
 
-### Phase 8️⃣ Parallelism & Scaling
+### Phase 8 — Parallelism & Scaling
 
 | Project | Topic | Outcome |
 |---------|-------|---------|
-| **24** | Tensor Parallelism | Multi-GPU training 🖥️ |
+| **24** | Tensor Parallelism | Multi-GPU training |
 | **25** | Pipeline Parallelism | Better GPU utilization |
 
 **Papers:** Megatron-LM • GPipe • PipeDream
 
 ---
 
-### Phase 9️⃣ Compiler Optimizations
+### Phase 9 — Compiler Optimizations
 
 | Project | Topic | Speedup |
 |---------|-------|---------|
-| **26** | Operator Fusion | 20-40% ⚡ |
-| **27** | Graph Optimization | 1.5-3x ⚡ |
-| **28** | Early Exit | 30-50% ⚡ |
+| **26** | Operator Fusion | 20-40% |
+| **27** | Graph Optimization | 1.5-3x |
+| **28** | Early Exit | 30-50% |
 
 **Papers:** Triton • XLA • TVM • PABEE
 
 ---
 
-### Phase 🔟 Production Deployment
+### Phase 10 — Production Deployment
 
 | Project | Topic | Outcome |
 |---------|-------|---------|
-| **29** | Model Serving Optimization | Production API 🌐 |
+| **29** | Model Serving Optimization | Production API |
 | **30** | Docker Deployment | One-command deploy |
 | **31** | Interactive UI (Gradio) | User-friendly |
 
 ---
 
-## 📊 At a Glance
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                        LEARNING PATHWAY                                      │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  Phase 1-2:    FOUNDATION       →  Build & Fine-Tune LLMs                   │
-│  Phase 3-4:    INFERENCE OPT    →  Speed Up Generation                      │
-│  Phase 5-6:    COMPRESSION      →  Shrink Models                            │
-│  Phase 7-8:    SCALING          →  Train Larger Models                      │
-│  Phase 9-10:   DEPLOYMENT       →  Ship to Production                       │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+## At a glance
 
 | Phase | Focus | Projects | Duration |
 |:-----:|-------|----------|:--------:|
@@ -201,7 +187,7 @@ You'll implement every component of an LLM pipeline from scratch:
 
 ---
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```
 implementation/
@@ -265,7 +251,7 @@ implementation/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ```bash
 # 1. Clone and navigate
@@ -285,7 +271,7 @@ python generate.py --prompt "ROMEO:" --interactive
 
 ---
 
-## 📚 Learning Path
+## Learning Path
 
 <div align="center">
 
@@ -305,5 +291,3 @@ python generate.py --prompt "ROMEO:" --interactive
 *Ship your LLM to the world*
 
 </div>
-
-

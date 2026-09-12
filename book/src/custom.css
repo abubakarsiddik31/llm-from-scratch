@@ -23,3 +23,25 @@
 .content blockquote {
     border-left: 4px solid var(--quote-border, #4d8b31);
 }
+
+/* Figures */
+.content .figure {
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.content .figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid rgba(128, 128, 128, 0.25);
+}
+
+.content .figure figcaption {
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin-top: 0.5em;
+    max-width: 42em;
+    margin-left: auto;
+    margin-right: auto;
+}

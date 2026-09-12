@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 660" font-family="Segoe UI, system-ui, -apple-system, sans-serif">
+<rect width="640" height="660" rx="12" fill="#fcfcfa"/>
+<text x="320.0" y="44" text-anchor="middle" font-size="21" font-weight="600" fill="#1e293b">The causal attention mask</text>
+<text x="320.0" y="68" text-anchor="middle" font-size="13.5" fill="#64748b">Row t (a query) may attend to columns 1..t (the keys); the future is hidden.</text>
+<rect x="150" y="116" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="192" y="116" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="201" y1="149" x2="225" y2="125" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="234" y="116" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="243" y1="149" x2="267" y2="125" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="276" y="116" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="285" y1="149" x2="309" y2="125" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="318" y="116" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="327" y1="149" x2="351" y2="125" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="360" y="116" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="369" y1="149" x2="393" y2="125" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="402" y="116" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="411" y1="149" x2="435" y2="125" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="444" y="116" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="453" y1="149" x2="477" y2="125" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="150" y="158" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="192" y="158" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="234" y="158" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="243" y1="191" x2="267" y2="167" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="276" y="158" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="285" y1="191" x2="309" y2="167" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="318" y="158" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="327" y1="191" x2="351" y2="167" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="360" y="158" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="369" y1="191" x2="393" y2="167" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="402" y="158" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="411" y1="191" x2="435" y2="167" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="444" y="158" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="453" y1="191" x2="477" y2="167" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="150" y="200" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="192" y="200" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="234" y="200" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="276" y="200" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="285" y1="233" x2="309" y2="209" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="318" y="200" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="327" y1="233" x2="351" y2="209" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="360" y="200" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="369" y1="233" x2="393" y2="209" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="402" y="200" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="411" y1="233" x2="435" y2="209" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="444" y="200" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="453" y1="233" x2="477" y2="209" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="150" y="242" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="192" y="242" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="234" y="242" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="276" y="242" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="318" y="242" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="327" y1="275" x2="351" y2="251" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="360" y="242" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="369" y1="275" x2="393" y2="251" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="402" y="242" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="411" y1="275" x2="435" y2="251" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="444" y="242" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="453" y1="275" x2="477" y2="251" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="150" y="284" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="192" y="284" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="234" y="284" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="276" y="284" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="318" y="284" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="360" y="284" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="369" y1="317" x2="393" y2="293" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="402" y="284" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="411" y1="317" x2="435" y2="293" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="444" y="284" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="453" y1="317" x2="477" y2="293" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="150" y="326" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="192" y="326" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="234" y="326" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="276" y="326" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="318" y="326" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="360" y="326" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="402" y="326" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="411" y1="359" x2="435" y2="335" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="444" y="326" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="453" y1="359" x2="477" y2="335" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="150" y="368" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="192" y="368" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="234" y="368" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="276" y="368" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="318" y="368" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="360" y="368" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="402" y="368" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="444" y="368" width="42" height="42" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="453" y1="401" x2="477" y2="377" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="150" y="410" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="192" y="410" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="234" y="410" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="276" y="410" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="318" y="410" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="360" y="410" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="402" y="410" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<rect x="444" y="410" width="42" height="42" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+<line x1="150" y1="116" x2="486" y2="452" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="6 4"/>
+<text x="136" y="142.0" text-anchor="end" font-size="13" fill="#334155">t=1</text>
+<text x="136" y="184.0" text-anchor="end" font-size="13" fill="#334155">t=2</text>
+<text x="136" y="226.0" text-anchor="end" font-size="13" fill="#334155">t=3</text>
+<text x="136" y="268.0" text-anchor="end" font-size="13" fill="#334155">t=4</text>
+<text x="136" y="310.0" text-anchor="end" font-size="13" fill="#334155">t=5</text>
+<text x="136" y="352.0" text-anchor="end" font-size="13" fill="#334155">t=6</text>
+<text x="136" y="394.0" text-anchor="end" font-size="13" fill="#334155">t=7</text>
+<text x="136" y="436.0" text-anchor="end" font-size="13" fill="#334155">t=8</text>
+<text x="171.0" y="474" text-anchor="middle" font-size="13" fill="#334155">1</text>
+<text x="213.0" y="474" text-anchor="middle" font-size="13" fill="#334155">2</text>
+<text x="255.0" y="474" text-anchor="middle" font-size="13" fill="#334155">3</text>
+<text x="297.0" y="474" text-anchor="middle" font-size="13" fill="#334155">4</text>
+<text x="339.0" y="474" text-anchor="middle" font-size="13" fill="#334155">5</text>
+<text x="381.0" y="474" text-anchor="middle" font-size="13" fill="#334155">6</text>
+<text x="423.0" y="474" text-anchor="middle" font-size="13" fill="#334155">7</text>
+<text x="465.0" y="474" text-anchor="middle" font-size="13" fill="#334155">8</text>
+<text x="318.0" y="502" text-anchor="middle" font-size="13.5" fill="#64748b">key position</text>
+<text transform="rotate(-90 80 284.0)" x="80" y="284.0" text-anchor="middle" font-size="13.5" fill="#64748b">query position</text>
+<rect x="150" y="540" width="18" height="18" fill="#dbeafe" stroke="#93c5fd"/>
+<text x="176" y="554" font-size="13.5" fill="#334155">may attend</text>
+<rect x="290" y="540" width="18" height="18" fill="#f1f5f9" stroke="#cbd5e1"/>
+<text x="316" y="554" font-size="13.5" fill="#334155">masked (future)</text>
+<text x="320.0" y="592" text-anchor="middle" font-size="13" fill="#64748b">Remove this mask and the model sees the future: that is BERT, not GPT.</text>
+</svg>

@@ -1,7 +1,7 @@
 [book]
 title = "Hands-On LLM Implementation"
 authors = ["Abu Bakar Siddik"]
-description = "Build everything from scratch — a practical, implementation-first guide to training and deploying Large Language Models"
+description = "Build everything from scratch: a practical, implementation-first guide to training and deploying Large Language Models"
 src = "src"
 language = "en"
 

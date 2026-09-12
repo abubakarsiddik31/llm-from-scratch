@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 470" font-family="Segoe UI, system-ui, -apple-system, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="780" height="470" rx="12" fill="#fcfcfa"/>
+  <text x="390" y="42" text-anchor="middle" font-size="21" font-weight="600" fill="#1e293b">BERT masking: 80/10/10</text>
+  <text x="390" y="66" text-anchor="middle" font-size="13.5" fill="#64748b">15% of tokens are selected for masking. What the model sees at that position varies; the target never does.</text>
+
+  <!-- token row -->
+  <g font-size="15" fill="#1e293b" text-anchor="middle">
+    <rect x="150" y="96" width="72" height="40" rx="7" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/><text x="186" y="121">The</text>
+    <rect x="230" y="96" width="72" height="40" rx="7" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/><text x="266" y="121">cat</text>
+    <rect x="310" y="96" width="72" height="40" rx="7" fill="#fef9c3" stroke="#ca8a04" stroke-width="2"/><text x="346" y="121">sat</text>
+    <rect x="390" y="96" width="72" height="40" rx="7" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/><text x="426" y="121">on</text>
+    <rect x="470" y="96" width="72" height="40" rx="7" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/><text x="506" y="121">the</text>
+    <rect x="550" y="96" width="72" height="40" rx="7" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/><text x="586" y="121">mat</text>
+  </g>
+  <text x="346" y="156" text-anchor="middle" font-size="12.5" fill="#a16207">selected for masking</text>
+
+  <!-- branch arrows -->
+  <path d="M 346 140 V 170 H 130 V 216" fill="none" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrB)"/>
+  <path d="M 346 140 V 216" fill="none" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrB)"/>
+  <path d="M 346 140 V 170 H 590 V 216" fill="none" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrB)"/>
+
+  <text x="160" y="200" text-anchor="middle" font-size="14" font-weight="600" fill="#2563eb">80%</text>
+  <text x="346" y="200" text-anchor="middle" font-size="14" font-weight="600" fill="#2563eb">10%</text>
+  <text x="620" y="200" text-anchor="middle" font-size="14" font-weight="600" fill="#2563eb">10%</text>
+
+  <!-- three outcome boxes -->
+  <g text-anchor="middle">
+    <rect x="60" y="220" width="200" height="58" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="160" y="245" font-size="15.5" fill="#1e293b">[MASK]</text>
+    <text x="160" y="266" font-size="12.5" fill="#64748b">the actual task</text>
+
+    <rect x="290" y="220" width="200" height="58" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="390" y="245" font-size="15.5" fill="#1e293b">random token</text>
+    <text x="390" y="266" font-size="12.5" fill="#64748b">the model can't trust any input</text>
+
+    <rect x="520" y="220" width="200" height="58" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="620" y="245" font-size="15.5" fill="#1e293b">keep original</text>
+    <text x="620" y="266" font-size="12.5" fill="#64748b">narrows pre-train / fine-tune gap</text>
+  </g>
+
+  <!-- converge to loss -->
+  <path d="M 160 278 V 316 H 374" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 390 278 V 316" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 620 278 V 316 H 406" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="220" y="320" width="340" height="58" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="390" y="345" text-anchor="middle" font-size="15" fill="#1e293b">predict the original token ("sat")</text>
+  <text x="390" y="366" text-anchor="middle" font-size="12.5" fill="#64748b">cross-entropy, summed over masked positions only</text>
+
+  <text x="390" y="424" text-anchor="middle" font-size="13.5" fill="#64748b">From Devlin et al. (2018), Section 3.1.</text>
+</svg>

@@ -9,7 +9,7 @@ Everything in Part I was built and trained on a single consumer GPU:
 | **GPU** | CUDA-capable; 8 GB VRAM recommended (all runs here used an RTX 3050 8 GB) |
 | **Python** | 3.10–3.13 |
 | **Env manager** | [`uv`](https://docs.astral.sh/uv/) |
-| **Knowledge** | Neural networks & attention (theory only — we implement the rest) |
+| **Knowledge** | Neural networks & attention (theory only; we implement the rest) |
 
 ## Installation
 

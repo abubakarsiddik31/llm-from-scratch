@@ -108,18 +108,15 @@ alignment.
 
 ## The learning pathway
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                       LEARNING PATHWAY                      │
-├─────────────────────────────────────────────────────────────┤
-│  Phase 1-2:   FOUNDATION     →  Build & fine-tune LLMs      │
-│  Phase 3-4:   INFERENCE OPT  →  Speed up generation         │
-│  Phase 5-6:   COMPRESSION    →  Shrink models               │
-│  Phase 7-8:   SCALING        →  Train larger models         │
-│  Phase 9-10:  DEPLOYMENT     →  Ship to production         │
-└─────────────────────────────────────────────────────────────┘
-```
+| Phases | Theme |
+|--------|-------|
+| 1–2 | Build and fine-tune LLMs |
+| 3–4 | Speed up generation |
+| 5–6 | Shrink models |
+| 7–8 | Train larger models |
+| 9–10 | Ship to production |
 
-Projects are **cumulative** — the tokenizer of Phase 1 feeds the pre-training
-of Project 4; the model of Project 4 is what gets fine-tuned in Phase 2 and
-optimized in Phases 3–9. Don't skip foundations.
+Projects are **cumulative**: the tokenizer of Phase 1 feeds the pre-training
+of Project 4, the model of Project 4 is what gets fine-tuned in Phase 2, and
+the same model is the one optimized in Phases 3–9. Skipping foundations
+catches up with you by Phase 3.

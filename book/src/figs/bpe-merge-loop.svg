@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 430" font-family="Segoe UI, system-ui, -apple-system, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="780" height="430" rx="12" fill="#fcfcfa"/>
+  <text x="390" y="42" text-anchor="middle" font-size="21" font-weight="600" fill="#1e293b">The BPE training loop</text>
+
+  <!-- top row: the loop -->
+  <rect x="40" y="140" width="200" height="64" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="140" y="167" text-anchor="middle" font-size="14.5" fill="#1e293b">Corpus as a sequence</text>
+  <text x="140" y="187" text-anchor="middle" font-size="14.5" fill="#1e293b">of characters</text>
+
+  <line x1="240" y1="172" x2="278" y2="172" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="280" y="140" width="200" height="64" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="380" y="167" text-anchor="middle" font-size="14.5" fill="#1e293b">Count every adjacent</text>
+  <text x="380" y="187" text-anchor="middle" font-size="14.5" fill="#1e293b">token pair</text>
+
+  <line x1="480" y1="172" x2="518" y2="172" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="520" y="140" width="220" height="64" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="630" y="167" text-anchor="middle" font-size="14.5" fill="#1e293b">Merge the most frequent</text>
+  <text x="630" y="187" text-anchor="middle" font-size="14.5" fill="#1e293b">pair into a new token</text>
+
+  <!-- loop back arrow -->
+  <path d="M 630 140 V 92 H 380 V 136" fill="none" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="505" y="84" text-anchor="middle" font-size="13" fill="#16a34a">repeat until the vocab reaches its target size</text>
+
+  <!-- bottom row: outputs -->
+  <line x1="630" y1="204" x2="630" y2="268" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="520" y="270" width="220" height="64" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="630" y="297" text-anchor="middle" font-size="14.5" fill="#1e293b">Vocabulary + ordered</text>
+  <text x="630" y="317" text-anchor="middle" font-size="14.5" fill="#1e293b">merge list (the checkpoint)</text>
+
+  <line x1="520" y1="302" x2="482" y2="302" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="280" y="270" width="200" height="64" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="380" y="297" text-anchor="middle" font-size="14.5" fill="#1e293b">encode(): replay merges</text>
+  <text x="380" y="317" text-anchor="middle" font-size="14.5" fill="#1e293b">in the order learned</text>
+
+  <text x="380" y="382" text-anchor="middle" font-size="13.5" fill="#64748b">Training learns which pairs to merge; encoding just replays the recipe on new text.</text>
+  <text x="380" y="404" text-anchor="middle" font-size="13.5" fill="#64748b">From Sennrich et al. (2016), Algorithm 1.</text>
+</svg>
