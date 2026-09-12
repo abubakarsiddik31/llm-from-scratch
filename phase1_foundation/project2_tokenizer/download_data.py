@@ -35,6 +35,7 @@ import gzip
 import os
 import re
 import sys
+import urllib.parse
 from pathlib import Path
 from typing import Optional
 
@@ -78,6 +79,59 @@ SIZE_PRESETS = {
     "large": 10 * 1024 * 1024 * 1024,  # 10 GB
 }
 
+# Only these hosts may be downloaded from (prevents SSRF via CLI-supplied URLs)
+ALLOWED_DOWNLOAD_HOSTS = {
+    "dumps.wikimedia.org",
+    "s3.amazonaws.com",
+}
+
+
+def validate_output_path(output_path: str) -> str:
+    """
+    Ensures an output path resolves inside the repository's data/ directory.
+
+    Prevents path traversal when a user-supplied --output path is written to.
+
+    Args:
+        output_path: Path where downloaded/processed data will be written
+
+    Returns:
+        The resolved absolute path
+
+    Raises:
+        ValueError: If the path escapes the repository's data/ directory
+    """
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    root_dir = os.path.dirname(os.path.dirname(script_dir))
+    data_dir = os.path.abspath(os.path.join(root_dir, "data"))
+    resolved = os.path.abspath(output_path)
+
+    if os.path.commonpath([resolved, data_dir]) != data_dir:
+        raise ValueError(
+            f"Output path must be inside the repository's data/ directory "
+            f"({data_dir}), got: {resolved}"
+        )
+
+    os.makedirs(os.path.dirname(resolved) or ".", exist_ok=True)
+    return resolved
+
+
+def validate_download_url(url: str) -> None:
+    """
+    Ensure a URL points at an allow-listed HTTPS host before downloading.
+
+    Prevents SSRF: this script should only ever fetch public dataset files.
+
+    Raises:
+        ValueError: If the scheme or host is not allowed
+    """
+    parsed = urllib.parse.urlparse(url)
+    if parsed.scheme != "https" or parsed.hostname not in ALLOWED_DOWNLOAD_HOSTS:
+        raise ValueError(
+            f"Refusing to download from {url!r}. "
+            f"Allowed HTTPS hosts: {sorted(ALLOWED_DOWNLOAD_HOSTS)}"
+        )
+
 
 # =============================================================================
 # DOWNLOAD HELPERS
@@ -101,6 +155,9 @@ def download_with_progress(url: str, output_path: str) -> int:
     print(f"Downloading from: {url}")
     print(f"Saving to: {output_path}")
     print()
+
+    validate_download_url(url)
+    output_path = validate_output_path(output_path)
 
     try:
         response = requests.get(url, stream=True, timeout=30, allow_redirects=True)
@@ -295,7 +352,7 @@ def process_wikipedia_dump(
     final_text = "\n\n".join(extracted_texts)
 
     # Create output directory if needed
-    os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
+    output_path = validate_output_path(output_path)
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(final_text)
@@ -355,7 +412,7 @@ def download_wikitext_huggingface(output_path: str, size: str = "medium") -> Non
         text = "\n\n".join(example["text"] for example in dataset)
 
         # Create output directory if needed
-        os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
+        output_path = validate_output_path(output_path)
 
         # Write to output
         with open(output_path, "w", encoding="utf-8") as f:
@@ -394,6 +451,8 @@ def download_wikitext_direct(output_path: str, size: str = "medium") -> None:
     print(f"Downloading WikiText-{size if size != 'small' else '2'} dataset...")
     print(f"URL: {url}")
     print()
+
+    output_path = validate_output_path(output_path)
 
     # Download
     temp_zip = output_path + ".zip"

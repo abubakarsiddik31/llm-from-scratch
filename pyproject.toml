@@ -2,10 +2,7 @@
 name = "llm-implementation"
 version = "0.1.0"
 description = "Hands-on LLM implementation from scratch"
-requires-python = ">=3.10"
-
-[tool.uv]
-dev-dependencies = []
+requires-python = ">=3.10,<3.14"
 
 [dependency-groups]
 all = [
@@ -14,6 +11,7 @@ all = [
     "datasets>=2.14.0",
     "tokenizers>=0.14.0",
     "accelerate>=0.24.0",
+    "tqdm>=4.66.0",
     "bitsandbytes>=0.41.0",
     "peft>=0.6.0",
     "trl>=0.7.0",
@@ -23,3 +21,13 @@ all = [
     "uvicorn[standard]>=0.24.0",
     "gradio>=4.0.0",
 ]
+
+[tool.uv.sources]
+# CUDA 12.8 wheels for the local NVIDIA GPU (RTX 3050 8GB, Ampere sm_86).
+# On a CPU-only machine, remove this block to fall back to CPU torch builds.
+torch = [{ index = "pytorch-cu128" }]
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true

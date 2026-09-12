@@ -1,3 +1,6 @@
+# Mimosa security scan artifacts
+.mimosa/
+
 # Python
 __pycache__/
 *.py[cod]

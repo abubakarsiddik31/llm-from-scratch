@@ -195,7 +195,9 @@ def interactive_mode(model, encode, decode):
                 print("Goodbye!")
                 break
             elif prompt.lower() == "clear":
-                os.system("clear" if os.name == "posix" else "cls")
+                # ANSI clear-screen sequence; works in Windows Terminal and
+                # POSIX terminals without shelling out to an OS command
+                print("\033[2J\033[H", end="", flush=True)
                 continue
             elif prompt.lower().startswith("temp "):
                 temperature = float(prompt.split()[1])

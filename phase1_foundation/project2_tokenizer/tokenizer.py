@@ -46,6 +46,7 @@ PAPER REFERENCE:
 - GPT-3 (2020): Same BPE approach, scaled up
 """
 
+import os
 import pickle
 from collections import Counter
 from typing import Dict, List, Optional, Tuple
@@ -647,6 +648,7 @@ class BPETokenizer:
         Args:
             filepath: Path to save tokenizer (.pkl file)
         """
+        filepath = validate_model_path(filepath)
         data = {
             "vocab": self.vocab,
             "inverse_vocab": self.inverse_vocab,
@@ -671,6 +673,7 @@ class BPETokenizer:
         Returns:
             Loaded BPETokenizer instance
         """
+        filepath = validate_model_path(filepath)
         with open(filepath, "rb") as f:
             data = pickle.load(f)
 
@@ -689,6 +692,32 @@ class BPETokenizer:
 # =============================================================================
 # UTILITY FUNCTIONS
 # =============================================================================
+
+
+def validate_model_path(filepath: str) -> str:
+    """
+    Ensures a checkpoint path stays inside the repository (no path traversal).
+
+    Args:
+        filepath: User-supplied path to a tokenizer .pkl file
+
+    Returns:
+        The resolved absolute path
+
+    Raises:
+        ValueError: If the path escapes the repository directory
+    """
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    repo_root = os.path.dirname(os.path.dirname(script_dir))
+    resolved = os.path.abspath(filepath)
+
+    if os.path.commonpath([resolved, repo_root]) != repo_root:
+        raise ValueError(
+            f"Checkpoint path must stay inside the repository ({repo_root}), "
+            f"got: {resolved}"
+        )
+
+    return resolved
 
 
 def get_tokenizer_stats(tokenizer: BPETokenizer) -> Dict[str, any]:

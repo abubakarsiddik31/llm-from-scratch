@@ -20,6 +20,41 @@ from typing import Optional
 
 
 # =============================================================================
+# PATH VALIDATION
+# =============================================================================
+
+
+def validate_output_path(save_path: str) -> str:
+    """
+    Ensures an output path resolves inside the repository's data/ directory.
+
+    Prevents path traversal when a user-supplied --output path is written to.
+
+    Args:
+        save_path: Path where the dataset will be written
+
+    Returns:
+        The resolved absolute path
+
+    Raises:
+        ValueError: If the path escapes the repository's data/ directory
+    """
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    root_dir = os.path.dirname(os.path.dirname(script_dir))
+    data_dir = os.path.abspath(os.path.join(root_dir, "data"))
+    resolved = os.path.abspath(save_path)
+
+    if os.path.commonpath([resolved, data_dir]) != data_dir:
+        raise ValueError(
+            f"Output path must be inside the repository's data/ directory "
+            f"({data_dir}), got: {resolved}"
+        )
+
+    os.makedirs(os.path.dirname(resolved) or ".", exist_ok=True)
+    return resolved
+
+
+# =============================================================================
 # DATA DOWNLOAD
 # =============================================================================
 
@@ -76,6 +111,7 @@ def download_wikitext(size: str = "small", save_path: Optional[str] = None):
             root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
             save_path = os.path.join(root_dir, "data", "wikitext_train.txt")
 
+        save_path = validate_output_path(save_path)
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
         with open(save_path, "w", encoding="utf-8") as f:
@@ -90,7 +126,7 @@ def download_wikitext(size: str = "small", save_path: Optional[str] = None):
             example["text"] for example in val_dataset if example["text"].strip()
         )
 
-        val_path = save_path.replace("_train.txt", "_val.txt")
+        val_path = validate_output_path(save_path.replace("_train.txt", "_val.txt"))
         with open(val_path, "w", encoding="utf-8") as f:
             f.write(val_text)
 
@@ -103,7 +139,7 @@ def download_wikitext(size: str = "small", save_path: Optional[str] = None):
             example["text"] for example in test_dataset if example["text"].strip()
         )
 
-        test_path = save_path.replace("_train.txt", "_test.txt")
+        test_path = validate_output_path(save_path.replace("_train.txt", "_test.txt"))
         with open(test_path, "w", encoding="utf-8") as f:
             f.write(test_text)
 
@@ -165,6 +201,7 @@ def download_wikipedia_articles(save_path: Optional[str] = None, num_articles: i
             root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
             save_path = os.path.join(root_dir, "data", "wikipedia_train.txt")
 
+        save_path = validate_output_path(save_path)
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
         with open(save_path, "w", encoding="utf-8") as f:
@@ -240,6 +277,7 @@ def create_sample_data(save_path: Optional[str] = None):
         root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
         save_path = os.path.join(root_dir, "data", "sample_train.txt")
 
+    save_path = validate_output_path(save_path)
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
     with open(save_path, "w", encoding="utf-8") as f:
