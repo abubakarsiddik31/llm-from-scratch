@@ -12,7 +12,7 @@ pattern as the repository grows.
 | 2 | BPE Tokenizer | ✅ [Chapter 2](./ch02-bpe-tokenizer.md) |
 | 3 | Contextual Embeddings (BERT-style) | ✅ [Chapter 3](./ch03-bert-embeddings.md) |
 | 3B | SimCSE (Sentence Embeddings) | ✅ [Chapter 4](./ch04-simcse.md) |
-| 4 | Pre-train 125M Model | ⏳ Pending |
+| 4 | Pre-train 125M Model | ✅ [Chapter 5](./ch05-pretrain.md) |
 
 **Focus:** multi-head attention, transformer blocks, training loops, text
 generation, masked language modeling, contrastive learning.

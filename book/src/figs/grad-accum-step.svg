@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1e293b"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6"/>
+    </marker>
+  </defs>
+
+  <!-- background -->
+  <rect x="0" y="0" width="760" height="300" rx="12" fill="#fcfcfa"/>
+
+  <!-- title -->
+  <text x="380" y="30" text-anchor="middle" font-size="15" font-weight="600" fill="#1e293b">One optimizer step = 8 accumulated micro-batches</text>
+
+  <!-- micro-batch boxes -->
+  <g font-size="11" fill="#1e293b">
+    <rect x="40"  y="60" width="80" height="44" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="80"  y="78" text-anchor="middle">batch 1</text>
+    <text x="80"  y="93" text-anchor="middle" fill="#64748b">8 × 512 tok</text>
+
+    <rect x="140" y="60" width="80" height="44" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="180" y="78" text-anchor="middle">batch 2</text>
+    <text x="180" y="93" text-anchor="middle" fill="#64748b">8 × 512 tok</text>
+
+    <text x="248" y="86" text-anchor="middle" font-size="14" fill="#64748b">…</text>
+
+    <rect x="270" y="60" width="80" height="44" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="310" y="78" text-anchor="middle">batch 8</text>
+    <text x="310" y="93" text-anchor="middle" fill="#64748b">8 × 512 tok</text>
+  </g>
+
+  <!-- arrows down to accumulate -->
+  <line x1="80"  y1="104" x2="185" y2="150" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="180" y1="104" x2="196" y2="150" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="310" y1="104" x2="215" y2="150" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+
+  <!-- accumulate box -->
+  <rect x="120" y="155" width="190" height="46" rx="6" fill="#eff6ff" stroke="#3b82f6"/>
+  <text x="215" y="174" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">accumulate gradients</text>
+  <text x="215" y="191" text-anchor="middle" font-size="11" fill="#3b82f6">each loss ÷ 8, then summed</text>
+
+  <!-- arrow to step -->
+  <line x1="310" y1="178" x2="395" y2="178" stroke="#1e293b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="352" y="168" text-anchor="middle" font-size="10" fill="#64748b">grads of the mean</text>
+
+  <!-- step box -->
+  <rect x="400" y="155" width="150" height="46" rx="6" fill="#f0fdf4" stroke="#16a34a"/>
+  <text x="475" y="174" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">one AdamW step</text>
+  <text x="475" y="191" text-anchor="middle" font-size="11" fill="#16a34a">clip 1.0 · lr(t)</text>
+
+  <!-- lr schedule inset -->
+  <g transform="translate(590, 55)">
+    <rect x="0" y="0" width="140" height="110" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="70" y="16" text-anchor="middle" font-size="10" font-weight="600" fill="#1e293b">lr(t)</text>
+    <!-- axes -->
+    <line x1="18" y1="90" x2="128" y2="90" stroke="#94a3b8" stroke-width="1"/>
+    <line x1="18" y1="90" x2="18" y2="26" stroke="#94a3b8" stroke-width="1"/>
+    <!-- warmup + cosine path -->
+    <path d="M 18 90 L 38 34 C 70 34, 100 74, 126 82" fill="none" stroke="#3b82f6" stroke-width="2"/>
+    <text x="26" y="102" text-anchor="middle" font-size="8" fill="#64748b">warmup</text>
+    <text x="90" y="102" text-anchor="middle" font-size="8" fill="#64748b">cosine decay</text>
+    <text x="30" y="26" font-size="8" fill="#3b82f6">2.5e-4</text>
+    <text x="100" y="76" font-size="8" fill="#3b82f6">2.5e-5</text>
+  </g>
+
+  <!-- footer note -->
+  <text x="215" y="240" text-anchor="middle" font-size="11" fill="#64748b">32,768 tokens per step: batch 8 × accum 8 × block 512</text>
+  <text x="380" y="272" text-anchor="middle" font-size="10" fill="#94a3b8">Same mean gradient as a 64-sequence batch, ~4× less GPU memory.</text>
+</svg>

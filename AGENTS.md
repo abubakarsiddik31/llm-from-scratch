@@ -33,7 +33,7 @@ Two things live side by side here:
 | 2. BPE Tokenizer | `phase1_foundation/project2_tokenizer/` | `ch02-bpe-tokenizer.md` | complete |
 | 3. Contextual Embeddings (BERT-style) | `phase1_foundation/project3_contextual_embeddings/` | `ch03-bert-embeddings.md` | complete |
 | 3B. SimCSE | `phase1_foundation/project3b_simcse/` | `ch04-simcse.md` | complete |
-| 4. Pre-train 125M model | `phase1_foundation/project4_pretrain/` | not written | pending |
+| 4. Pre-train 125M model | `phase1_foundation/project4_pretrain/` | `ch05-pretrain.md` | complete |
 
 Phase 2 (SFT, LoRA, DPO) onward: see the roadmap in `README.md` and
 `book/src/curriculum.md`. The full pipeline is tokenization → pre-training →

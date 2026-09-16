@@ -9,6 +9,7 @@
 - [The BPE Tokenizer](./ch02-bpe-tokenizer.md)
 - [Contextual Embeddings: BERT from Scratch](./ch03-bert-embeddings.md)
 - [SimCSE: Sentence Embeddings](./ch04-simcse.md)
+- [Pre-Training a 125M GPT](./ch05-pretrain.md)
 
 # Appendices
 

@@ -70,12 +70,14 @@ uv run python phase1_foundation/project4_pretrain/generate.py --interactive
 - BLOCK_SIZE 512 instead of GPT-2's 1024 roughly doubles throughput; the
   config documents the deviation.
 - Measured on a 3-step smoke run at the default batch shape (8 x 512,
-  accum 8, bf16): ~5.7k tokens/s. That puts the default 4,000-step run
-  (~131M tokens, about one pass over WikiText-103) around 6-7 hours.
-  Steady-state numbers from the real run go in `book/src/results.md`.
-- Chinchilla-optimal for 126M params would be ~2.5B tokens, which is out
-  of reach on this GPU; the loss curves we actually get are recorded
-  honestly as runs complete.
+  accum 8, bf16): ~5.7k tokens/s; the real run settles at ~14.1k tokens/s
+  once kernels warm up. The default 4,000-step run (~131M tokens, one pass
+  over WikiText-103) took 2 h 36 min at 5.8 GB of GPU memory; final val
+  loss 3.408 (perplexity 30.2), best 3.385 at iter 3,800. Numbers also
+  recorded in `book/src/results.md`.
+- Chinchilla-optimal for 126M params would be ~2.5B tokens, about 19x this
+  run (~50 hours at the measured throughput); the loss curves we actually
+  get are recorded honestly as runs complete.
 
 ## Smoke validation (WikiText-2, 2026-09-17)
 

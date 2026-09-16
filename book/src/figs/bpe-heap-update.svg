@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1e293b"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="760" height="320" rx="12" fill="#fcfcfa"/>
+
+  <text x="380" y="28" text-anchor="middle" font-size="15" font-weight="600" fill="#1e293b">Merge #k: update only the words that contain the pair</text>
+
+  <!-- heap box -->
+  <g>
+    <rect x="35" y="55" width="205" height="180" rx="8" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="137" y="76" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">max-heap of (−count, pair)</text>
+    <g font-size="11" fill="#1e293b" font-family="ui-monospace, Consolas, monospace">
+      <text x="55" y="100">(−187, (e',' '))</text>
+      <text x="55" y="122">(−166, (t','h'))</text>
+      <text x="55" y="144" fill="#dc2626">(−150, (a','n'))  stale</text>
+      <text x="55" y="166" fill="#dc2626">(−140, (d',' '))  stale</text>
+      <text x="55" y="188">(−131, (n','d))</text>
+      <text x="55" y="210" fill="#94a3b8">…</text>
+    </g>
+    <text x="137" y="250" text-anchor="middle" font-size="10" fill="#64748b">a count change pushes a fresh entry;</text>
+    <text x="137" y="264" text-anchor="middle" font-size="10" fill="#64748b">popped entries that don't match the live</text>
+    <text x="137" y="278" text-anchor="middle" font-size="10" fill="#64748b">count are skipped (lazy deletion)</text>
+  </g>
+
+  <!-- pop arrow -->
+  <line x1="245" y1="100" x2="330" y2="100" stroke="#1e293b" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <text x="287" y="90" text-anchor="middle" font-size="10" fill="#64748b">pop fresh max</text>
+
+  <!-- chosen pair -->
+  <rect x="335" y="78" width="150" height="44" rx="6" fill="#eff6ff" stroke="#3b82f6"/>
+  <text x="410" y="97" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">merge ('t','h') → 'th'</text>
+  <text x="410" y="113" text-anchor="middle" font-size="10" fill="#3b82f6">count 166, re-checked live</text>
+
+  <!-- arrows to word index -->
+  <line x1="485" y1="100" x2="560" y2="100" stroke="#1e293b" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <text x="522" y="90" text-anchor="middle" font-size="10" fill="#64748b">word index</text>
+
+  <!-- word index box -->
+  <g>
+    <rect x="565" y="55" width="165" height="180" rx="8" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="647" y="76" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">pair → word ids</text>
+    <g font-size="11" font-family="ui-monospace, Consolas, monospace">
+      <text x="580" y="100">('t','h') → {3, 41,}</text>
+      <text x="580" y="118">            {7, 102}</text>
+      <text x="580" y="140" fill="#94a3b8">('e','r') → {5, 19, …}</text>
+      <text x="580" y="162" fill="#94a3b8">('o','n') → {2, 8, …}</text>
+      <text x="580" y="184" fill="#94a3b8">…</text>
+    </g>
+    <text x="647" y="215" text-anchor="middle" font-size="10" fill="#16a34a">only words 3, 41, 7, 102</text>
+    <text x="647" y="229" text-anchor="middle" font-size="10" fill="#16a34a">get their counts touched</text>
+  </g>
+
+  <!-- bottom comparison -->
+  <g font-size="11">
+    <rect x="120" y="255" width="240" height="40" rx="6" fill="#fef2f2" stroke="#dc2626"/>
+    <text x="240" y="272" text-anchor="middle" fill="#1e293b">Chapter 2 loop: rescan all 76,617 words,</text>
+    <text x="240" y="287" text-anchor="middle" fill="#1e293b">every merge — 12 min for 3,983 merges</text>
+
+    <rect x="400" y="255" width="240" height="40" rx="6" fill="#f0fdf4" stroke="#16a34a"/>
+    <text x="520" y="272" text-anchor="middle" fill="#1e293b">Incremental: touch 4 words,</text>
+    <text x="520" y="287" text-anchor="middle" fill="#1e293b">push a few counts — 24.9 s for 15,367</text>
+  </g>
+</svg>

@@ -57,7 +57,7 @@ You'll implement every component of an LLM pipeline from scratch:
 | **2** | BPE Tokenizer | ✅ Complete |
 | **3** | Contextual Embeddings (BERT-style) | ✅ Complete |
 | **3B** | SimCSE (Sentence Embeddings) | ✅ Complete |
-| **4** | Pre-train 125M Model | ⏳ Pending |
+| **4** | Pre-train 125M Model | ✅ Complete |
 
 **Focus:** Multi-head attention, Transformer blocks, Training loop, Text generation, Masked Language Modeling, Contrastive Learning
 
