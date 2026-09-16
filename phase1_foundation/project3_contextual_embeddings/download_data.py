@@ -16,6 +16,7 @@ uv run python phase1_foundation/project3_contextual_embeddings/download_data.py 
 
 import argparse
 import os
+import pathlib
 from typing import Optional
 
 
@@ -114,8 +115,7 @@ def download_wikitext(size: str = "small", save_path: Optional[str] = None):
         save_path = validate_output_path(save_path)
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
-        with open(save_path, "w", encoding="utf-8") as f:
-            f.write(text)
+        pathlib.Path(save_path).write_text(text, encoding="utf-8")
 
         print(f"✓ Saved training data to {save_path}")
 
@@ -127,8 +127,7 @@ def download_wikitext(size: str = "small", save_path: Optional[str] = None):
         )
 
         val_path = validate_output_path(save_path.replace("_train.txt", "_val.txt"))
-        with open(val_path, "w", encoding="utf-8") as f:
-            f.write(val_text)
+        pathlib.Path(val_path).write_text(val_text, encoding="utf-8")
 
         print(f"✓ Saved validation data to {val_path}")
 
@@ -140,8 +139,7 @@ def download_wikitext(size: str = "small", save_path: Optional[str] = None):
         )
 
         test_path = validate_output_path(save_path.replace("_train.txt", "_test.txt"))
-        with open(test_path, "w", encoding="utf-8") as f:
-            f.write(test_text)
+        pathlib.Path(test_path).write_text(test_text, encoding="utf-8")
 
         print(f"✓ Saved test data to {test_path}")
 
@@ -204,8 +202,7 @@ def download_wikipedia_articles(save_path: Optional[str] = None, num_articles: i
         save_path = validate_output_path(save_path)
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
-        with open(save_path, "w", encoding="utf-8") as f:
-            f.write(text)
+        pathlib.Path(save_path).write_text(text, encoding="utf-8")
 
         print(f"✓ Saved to {save_path}")
 
@@ -280,8 +277,7 @@ def create_sample_data(save_path: Optional[str] = None):
     save_path = validate_output_path(save_path)
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
-    with open(save_path, "w", encoding="utf-8") as f:
-        f.write(sample_text)
+    pathlib.Path(save_path).write_text(sample_text, encoding="utf-8")
 
     print(f"✓ Saved to {save_path}")
 

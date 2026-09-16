@@ -724,8 +724,10 @@ if __name__ == "__main__":
     - Training state (for resuming training)
     - Metadata (dataset info, training duration, etc.)
     """
+    import pathlib
     import pickle
     meta_path = os.path.join(checkpoint_dir, 'meta.pkl')
-    with open(meta_path, 'wb') as f:
-        pickle.dump({'stoi': stoi, 'itos': itos}, f)
+    pathlib.Path(meta_path).write_bytes(
+        pickle.dumps({'stoi': stoi, 'itos': itos})
+    )
     print(f"Saved metadata to {meta_path}")

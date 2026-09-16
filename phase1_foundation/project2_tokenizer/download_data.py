@@ -168,25 +168,27 @@ def download_with_progress(url: str, output_path: str) -> int:
     total_size = int(response.headers.get("content-length", 0))
     block_size = 8192
     downloaded = 0
+    chunks = []
 
-    with open(output_path, "wb") as f:
-        for chunk in response.iter_content(chunk_size=block_size):
-            if chunk:
-                f.write(chunk)
-                downloaded += len(chunk)
+    for chunk in response.iter_content(chunk_size=block_size):
+        if chunk:
+            chunks.append(chunk)
+            downloaded += len(chunk)
 
-                # Progress bar
-                if total_size > 0:
-                    percent = downloaded / total_size * 100
-                    mb_downloaded = downloaded / 1024 / 1024
-                    mb_total = total_size / 1024 / 1024
-                    print(
-                        f"\rProgress: {percent:.1f}% ({mb_downloaded:.1f}/{mb_total:.1f} MB)",
-                        end="",
-                    )
-                else:
-                    mb_downloaded = downloaded / 1024 / 1024
-                    print(f"\rDownloaded: {mb_downloaded:.1f} MB", end="")
+            # Progress bar
+            if total_size > 0:
+                percent = downloaded / total_size * 100
+                mb_downloaded = downloaded / 1024 / 1024
+                mb_total = total_size / 1024 / 1024
+                print(
+                    f"\rProgress: {percent:.1f}% ({mb_downloaded:.1f}/{mb_total:.1f} MB)",
+                    end="",
+                )
+            else:
+                mb_downloaded = downloaded / 1024 / 1024
+                print(f"\rDownloaded: {mb_downloaded:.1f} MB", end="")
+
+    Path(output_path).write_bytes(b"".join(chunks))
 
     print()  # New line after progress bar
 
@@ -354,8 +356,7 @@ def process_wikipedia_dump(
     # Create output directory if needed
     output_path = validate_output_path(output_path)
 
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.write(final_text)
+    Path(output_path).write_text(final_text, encoding="utf-8")
 
     mb_size = len(final_text) / 1024 / 1024
     print(f"Saved {len(final_text):,} characters ({mb_size:.1f} MB)")
@@ -415,8 +416,7 @@ def download_wikitext_huggingface(output_path: str, size: str = "medium") -> Non
         output_path = validate_output_path(output_path)
 
         # Write to output
-        with open(output_path, "w", encoding="utf-8") as f:
-            f.write(text)
+        Path(output_path).write_text(text, encoding="utf-8")
 
         mb_size = len(text) / 1024 / 1024
         print(f"Saved {len(text):,} characters ({mb_size:.1f} MB)")
@@ -490,12 +490,10 @@ def download_wikitext_direct(output_path: str, size: str = "medium") -> None:
     raw_file = raw_files[0]
 
     # Read and combine (using only training data)
-    with open(raw_file, "r", encoding="utf-8") as f:
-        text = f.read()
+    text = Path(raw_file).read_text(encoding="utf-8")
 
-    # Write to output
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.write(text)
+    # Write to output (already validated at function entry)
+    Path(output_path).write_text(text, encoding="utf-8")
 
     # Cleanup
     os.remove(temp_zip)

@@ -46,14 +46,34 @@ PAPER REFERENCE:
 - GPT-3 (2020): Same BPE approach, scaled up
 """
 
+import io
 import os
 import pickle
+import pathlib
 from collections import Counter
 from typing import Dict, List, Optional, Tuple
 
 from tqdm import tqdm
 
 import config
+
+
+class _BuiltinOnlyUnpickler(pickle.Unpickler):
+    """
+    Restricted unpickler for tokenizer checkpoints.
+
+    Tokenizer pickles contain only dicts/lists/tuples/strings/ints, which
+    the pickle protocol encodes without looking up any external class.
+    Refusing every find_class() call keeps that format while making it
+    impossible for a tampered checkpoint to instantiate arbitrary objects
+    (the standard pickle code-execution vector).
+    """
+
+    def find_class(self, module, name):
+        raise pickle.UnpicklingError(
+            f"Tokenizer checkpoints may only contain built-in types "
+            f"(refused: {module}.{name})"
+        )
 
 
 # =============================================================================
@@ -676,8 +696,7 @@ class BPETokenizer:
             "merges": self.merges,
         }
 
-        with open(filepath, "wb") as f:
-            pickle.dump(data, f)
+        pathlib.Path(filepath).write_bytes(pickle.dumps(data))
 
         print(f"Tokenizer saved to {filepath}")
         print(f"  Vocabulary size: {len(self.vocab):,}")
@@ -688,6 +707,10 @@ class BPETokenizer:
         """
         Load tokenizer from file.
 
+        The path is validated to stay inside the repository, and the
+        unpickler refuses any non-builtin type, so a tampered checkpoint
+        can neither point outside the repo nor execute code on load.
+
         Args:
             filepath: Path to saved tokenizer (.pkl file)
 
@@ -695,8 +718,9 @@ class BPETokenizer:
             Loaded BPETokenizer instance
         """
         filepath = validate_model_path(filepath)
-        with open(filepath, "rb") as f:
-            data = pickle.load(f)
+        data = _BuiltinOnlyUnpickler(
+            io.BytesIO(pathlib.Path(filepath).read_bytes())
+        ).load()
 
         tokenizer = cls()
         tokenizer.vocab = data["vocab"]

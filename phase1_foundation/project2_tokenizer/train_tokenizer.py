@@ -26,6 +26,7 @@ python train_tokenizer.py --min_freq 5
 
 import argparse
 import os
+import pathlib
 import time
 
 import config
@@ -132,8 +133,7 @@ def create_sample_training_data(filepath: str, size_mb: float = 10.0) -> None:
     # Create directory if needed
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
 
-    with open(filepath, "w", encoding="utf-8") as f:
-        f.write(text)
+    pathlib.Path(filepath).write_text(text, encoding="utf-8")
 
     print(f"Created {len(text):,} characters ({len(text) / 1024 / 1024:.2f} MB)")
 
