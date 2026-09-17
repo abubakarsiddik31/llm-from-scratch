@@ -13,11 +13,15 @@ source code.
 - **Remote:** `git@github.com:abubakarsiddik31/llm-from-scratch.git` (branch `main`)
 - **Live book:** https://abubakarsiddik31.github.io/llm-from-scratch/
 - **Owner:** Abu Bakar Siddik
-- **Canonical location:** `C:\Users\abuba\projects\llm-from-scratch` (local disk).
-  The repo used to live in OneDrive and the `.git` folder was lost to a sync
-  conflict once; it has since been moved off cloud sync entirely. Do not move
-  or clone it back into OneDrive/Dropbox/Google Drive, and don't run training
-  from a synced folder.
+- **Canonical location:** `C:\Users\abuba\projects\llm-from-scratch` (local
+  disk). This is the ONLY copy of the repository on this machine. A copy
+  that lived at `C:\Users\abuba\OneDrive\Desktop\project\llm-from-scratch`
+  was removed on 2026-09-17 at the owner's direction: **nothing from this
+  project (repo, data, checkpoints, logs) belongs on OneDrive or any
+  cloud-synced folder.** The `.git` folder was already lost to a sync
+  conflict once. Never clone, move, or open the project from a synced
+  folder, and never run training from one; open sessions at the local-disk
+  path.
 
 Two things live side by side here:
 
