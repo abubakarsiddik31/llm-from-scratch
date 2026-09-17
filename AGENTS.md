@@ -21,7 +21,8 @@ source code.
   cloud-synced folder.** The `.git` folder was already lost to a sync
   conflict once. Never clone, move, or open the project from a synced
   folder, and never run training from one; open sessions at the local-disk
-  path.
+  path. The owner reconfirmed this on 2026-09-17 after a session was
+  accidentally opened at the old OneDrive path and asked to re-clone there.
 
 Two things live side by side here:
 
@@ -218,6 +219,16 @@ the build at their desk. Concretely:
   `C:\Users\abuba\projects\llm-from-scratch` on the local disk. For training
   runs, always work from a local-disk path — checkpoint writes fight sync
   clients and cause lock conflicts (see the warning in `book/src/setup.md`).
+- **The old OneDrive path grows back as a ghost folder.** ZCode sessions
+  opened there make the Mimosa security plugin write
+  `.mimosa/hook-state/*.json` into it; the folder reappears within seconds
+  of being deleted while such a session is open, and the folder itself
+  cannot be deleted until that session closes. It contains a few KB of
+  session-state JSON only, never project content. If you find
+  `C:\Users\abuba\OneDrive\Desktop\project\llm-from-scratch` with a
+  `.mimosa` inside: do not work there or clone into it. Close the session
+  opened at that path, delete the folder, and reopen at the canonical
+  local-disk path.
 - `data/` and `checkpoints/` are gitignored; don't commit them.
 - `book/build` output directory is build output; don't commit it.
 - After editing anything under `book/`, run `mdbook build book` (or push and
