@@ -41,9 +41,11 @@ Two things live side by side here:
 | 3B. SimCSE | `phase1_foundation/project3b_simcse/` | `ch04-simcse.md` | complete |
 | 4. Pre-train 125M model | `phase1_foundation/project4_pretrain/` | `ch05-pretrain.md` | complete |
 | 5. Supervised Fine-Tuning (SFT) | `phase2_finetuning/project5_sft/` | `ch06-sft.md` | scaffolded; pipeline smoke-verified, real run + chapter pending |
+| 6. LoRA Fine-Tuning | `phase2_finetuning/project6_lora/` | `ch07-lora.md` | scaffolded; CPU-verified (8/8 tests), real run + chapter pending |
 
-Phase 2 continues with LoRA (6) and DPO (7), both attaching to the
-project 5 SFT checkpoint. See the roadmap in `README.md` and
+Phase 2 continues with DPO (7). Project 6 reuses project 5's encoded
+Alpaca arrays and base checkpoint on purpose (controlled full-SFT vs
+LoRA comparison). See the roadmap in `README.md` and
 `book/src/curriculum.md`. The full pipeline is tokenization → pre-training →
 fine-tuning → optimization → deployment.
 
@@ -81,6 +83,11 @@ uv run python phase2_finetuning/project5_sft/prepare_data.py
 uv run python phase2_finetuning/project5_sft/test_model.py
 uv run python phase2_finetuning/project5_sft/train.py
 uv run python phase2_finetuning/project5_sft/generate.py --instruction "Give three tips for staying healthy."
+
+# Chapter 7 (pending) — LoRA: reuses project 5's data; base checkpoint by default
+uv run python phase2_finetuning/project6_lora/test_model.py
+uv run python phase2_finetuning/project6_lora/train.py
+uv run python phase2_finetuning/project6_lora/generate.py --instruction "Give three tips for staying healthy."
 ```
 
 ### Book
