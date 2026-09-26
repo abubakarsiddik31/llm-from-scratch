@@ -465,6 +465,8 @@ def main():
     lora_cfg = {"r": config.LORA_R, "alpha": config.LORA_ALPHA,
                 "targets": list(config.LORA_TARGETS)}
     apply_lora_to(model)
+    # adapters are created on the default device at wrap time; move them up
+    model.to(config.DEVICE)
     optimizer = configure_optimizer(model)
     print(f"Optimizer: AdamW lr={config.LEARNING_RATE} "
           f"betas=({config.BETA1}, {config.BETA2}) wd={config.WEIGHT_DECAY} "

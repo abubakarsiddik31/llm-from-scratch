@@ -157,6 +157,11 @@ WEIGHT_DECAY = 0.0
 BETA1, BETA2 = 0.9, 0.95
 GRAD_CLIP = 1.0
 
+# Same loss-choice switch as project 5 (response-only = InstructGPT,
+# full = Alpaca's released code). Default matches project 5 so the two
+# chapters' loss curves measure the adapter change alone.
+LOSS_ON_RESPONSE_ONLY = True
+
 EVAL_INTERVAL = 100
 EVAL_ITERS = 20
 LOG_INTERVAL = 10
