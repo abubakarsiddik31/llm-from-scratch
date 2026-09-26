@@ -22,7 +22,7 @@ generation, masked language modeling, contrastive learning.
 | Project | Topic | Status |
 |---------|-------|--------|
 | 5 | Supervised Fine-Tuning (SFT) | ✅ [Chapter 6](./ch06-sft.md) |
-| 6 | LoRA Fine-Tuning | |
+| 6 | LoRA Fine-Tuning | ✅ [Chapter 7](./ch07-lora.md) |
 | 7 | DPO (Direct Preference Optimization) | |
 
 **Focus:** instruction formatting, memory-efficient training, preference

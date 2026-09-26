@@ -125,6 +125,24 @@ Before SFT, the base model continued the template into WikiText prose
 produces answer-shaped spans and ends its turn; sample quality limits are
 recorded honestly in the chapter.
 
+## Chapter 7 — LoRA Fine-Tuning
+
+Adapted the Chapter 5 base model with LoRA (r = 8, alpha = 16, targets:
+the fused QKV `c_attn` in all 16 blocks) on the same encoded Alpaca
+arrays as Chapter 6, lr 1e-4, 2,400 steps = 153,600 example visits
+(~3.0 epochs), response-only loss.
+
+| Metric | Value |
+|---|---|
+| Trainable parameters | 393,216 of 126,666,240 (0.310%) |
+| Init identity check | iter-0 val loss 4.9941 = the base model's number |
+| Wall time | ~78 min (bf16, ~2.0 s/step) |
+| GPU memory | ~4.0 GB of 8 GB (full fine-tune: ~5.8 GB) |
+| Final val loss (2,400 steps) | 3.802 (perplexity 44.8) |
+| Head-to-head vs Chapter 6 | 4.994 → 2.766 (full) vs 4.994 → 3.802 (LoRA); ~53% of the loss improvement with 0.31% of the parameters |
+| Val curve | monotone down, no overfit in 3 epochs |
+| Sample behavior | format partially learned; repetition loops over short fragments (full SFT looped over plausible sentences) |
+
 ## Reproducing
 
 Every number above comes from the commands in

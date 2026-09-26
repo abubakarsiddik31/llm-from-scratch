@@ -200,7 +200,7 @@ implementation/
 │
 ├── phase2_finetuning/
 │   ├── project5_sft/               ✅ Complete
-│   ├── project6_lora/              🚧 Scaffolded
+│   ├── project6_lora/              ✅ Complete
 │   └── project7_dpo/
 │
 ├── phase3_core_inference/

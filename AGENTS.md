@@ -41,7 +41,7 @@ Two things live side by side here:
 | 3B. SimCSE | `phase1_foundation/project3b_simcse/` | `ch04-simcse.md` | complete |
 | 4. Pre-train 125M model | `phase1_foundation/project4_pretrain/` | `ch05-pretrain.md` | complete |
 | 5. Supervised Fine-Tuning (SFT) | `phase2_finetuning/project5_sft/` | `ch06-sft.md` | complete (2,400-step run done: val 4.99→2.77, 1h42m) |
-| 6. LoRA Fine-Tuning | `phase2_finetuning/project6_lora/` | `ch07-lora.md` | scaffolded; CPU-verified (8/8 tests), real run + chapter pending |
+| 6. LoRA Fine-Tuning | `phase2_finetuning/project6_lora/` | `ch07-lora.md` | complete (2,400-step run done: val 4.99→3.80, ~78 min, 0.31% trainable) |
 
 Phase 2 continues with DPO (7). Project 6 reuses project 5's encoded
 Alpaca arrays and base checkpoint on purpose (controlled full-SFT vs
@@ -228,6 +228,20 @@ the build at their desk. Concretely:
   number (GLUE test labels are hidden).
 - `alignment_and_uniformity` (Wang & Isola 2020) is implemented in
   `project3b_simcse/model.py`.
+- **Ch5 Pre-train 126M:** 16 layers × 768 × 12 heads, 16,384-token BPE,
+  WikiText-103 (~131M tokens, one pass), 4,000 steps ≈ 2 h 36 min, final
+  val loss 3.408 (ppl 30.2), 5.8 GB GPU. Incremental-heap tokenizer
+  trainer; naive-vs-incremental equivalence test.
+- **Ch6 SFT:** Alpaca 50,973 train / 1,000 val, response-only loss
+  (`ignore_index=-1`), trailing-space junction handled word-by-word
+  (`encode_words`), lr 2e-5, 2,400 steps ≈ 1 h 42 min, val 4.994 → 2.766
+  (ppl 15.9), 5.8 GB. Learned format and `<EOS>` stops; facts confabulated.
+- **Ch7 LoRA:** r=8, α=16 on `c_attn` × 16 blocks, 393,216 trainable
+  (0.310%), lr 1e-4, wd 0, same data/steps as ch6, val 4.994 → 3.802
+  (ppl 44.8), ~78 min, ~4.0 GB. Iter-0 val 4.9941 = base model exactly
+  (zero-init identity). Captured ~53% of full SFT's loss improvement;
+  samples loop over short fragments (full SFT looped over plausible
+  sentences). Five-key checkpoints; `merge()` folds ΔW into W.
 
 ## Gotchas
 

@@ -37,7 +37,7 @@ every one of the 16 blocks:
 
 | Component | Full fine-tune (ch06) | LoRA (this chapter) |
 |---|---|---|
-| Trainable parameters | 126,273,024 | 393,216 (0.311%) |
+| Trainable parameters | 126,273,024 | 393,216 (0.310%) |
 | AdamW optimizer state | ~1.0 GB | ~3.1 MB |
 | Per-matrix cost | 768 x 2304 = 1.77M | 8 x (768 + 2304) = 24,576 |
 | Adapted matrices | all | 16 x `c_attn` |
@@ -197,9 +197,74 @@ Defaults: r = 8, alpha = 16, targets c_attn, base = project 4 checkpoint,
 the same 50,973-example Alpaca arrays chapter 6 trained on, 2,400 steps,
 lr 1e-4, response-only loss.
 
-LORA-TABLE-PENDING
+| Metric | Value |
+|---|---|
+| Wall time | ~78 min (bf16, ~2.0 s/step incl. eval + snapshot writes) |
+| GPU memory | ~4.0 GB of 8 GB |
+| Val loss (response tokens), step 0 | 4.9941 (the base model's number) |
+| Val loss after 100 / 400 / 800 steps | 4.478 / 4.070 / 3.927 |
+| Final val loss (2,400 steps) | **3.802** (perplexity 44.8) |
+| Best checkpoint | final step; val monotone down, no overfit in 3 epochs |
 
-LORA-SAMPLES-PENDING
+The step-0 number doubles as a check. Chapter 6 measured the base model
+at 4.994 on these arrays before any training; the wrapped model, with
+393,216 fresh parameters attached, scored 4.9941 at iteration 0.
+Zero-initialized B plus a frozen base, verified on the real checkpoint as
+well as in `test_model.py`.
+
+Set against chapter 6, which trained every parameter on identical arrays:
+
+| Metric | Full SFT (ch06) | LoRA r = 8 (this chapter) |
+|---|---|---|
+| Trainable parameters | 126,273,024 | 393,216 (0.310%) |
+| Val loss, start → final | 4.994 → 2.766 | 4.994 → 3.802 |
+| Loss improvement captured | 2.228 | 1.192 (about 53%) |
+| Perplexity (response tokens) | 15.9 | 44.8 |
+| Wall time | ~1 h 42 min (~2.5 s/step) | ~78 min (~2.0 s/step) |
+| GPU memory | ~5.8 GB | ~4.0 GB |
+
+LoRA was also the cheaper run per step. The forward pass is unchanged
+(the adapter path adds one small matmul per block), but the frozen
+matrices never materialize weight gradients, and the optimizer step plus
+gradient clip touch 393k parameters instead of 126M. Memory drops for the
+same reason: no gradient slots or AdamW moments for the frozen 126M.
+
+One caveat on the deploy story: `model_final.pt` here stores the full
+wrapped model (~510 MB), five-key compatible like every other checkpoint
+in this repo. The adapter tensors alone are 393,216 × 4 bytes ≈ 1.6 MB;
+storing those with a base-checkpoint path would make the per-task
+shipping claim from the intro literal.
+
+The same three prompts chapter 6 sampled, after the LoRA run (temperature
+0.7):
+
+> **Q: Give three tips for staying healthy.**
+> A: 1. Heathft, 2. Take your healthme, 2. Say your healthme, 2. Say
+> your healthme, 9. Say your healthme, 9. Say your healthme, ...
+
+> **Q: What is the capital of France?**
+> A: The capital of France? is the capital of France: The capital of
+> France: The capital of France: A place of its own is the governor of
+> France: A place of the governor of France: A place of the governor of
+> France: ...
+
+> **Q: Rewrite this sentence in past tense: 'She walks to school.'**
+> A: She walks to school.
+
+The loss table and the samples agree. The adapter captured about half of
+what full fine-tuning captured (1.19 of the 2.23 loss improvement), and
+the samples show what half means: it moved toward the response format
+(numbered lists, answer-shaped openings) without escaping the base
+model's repetition attractors. Chapter 6's model looped too, but over
+plausible sentences; this one loops over five-word fragments. Full
+fine-tuning can rewrite the fluency machinery because it edits all 126M
+parameters; a rank-8 correction on 16 attention projections can only
+steer it. This is the random-base lesson from the overfit test above, one
+notch milder: the low-rank assumption recovers what the frozen base can
+express, and our base (val perplexity 30 on its own corpus, 131M
+pre-training tokens) is only partly the competent model the paper's
+GPT-3 experiments assumed. The missing competence is exactly what
+adapters cannot supply.
 
 ## Code tour
 
