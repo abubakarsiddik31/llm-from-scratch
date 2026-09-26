@@ -96,9 +96,12 @@ uv run python phase2_finetuning/project5_sft/generate.py --interactive
   model class, and the AST-verified copy of `model.py` is code-identical
   to Project 4's).
 - After 3 steps the samples are still WikiText-style continuation with
-  degenerate loops - expected. Instruction following and `<EOS>` stopping
-  are what the full 2,400-step run is supposed to teach; its numbers go
-  to `book/src/results.md` when complete.
+  degenerate loops - expected. The full 2,400-step run (2026-09-26)
+  delivered what it was supposed to teach: val loss 4.994 -> 2.766
+  (ppl 15.9) in ~1 h 42 min at ~5.8 GB, monotone down, no overfit in
+  3 epochs. The model answers in the template slot and stops via `<EOS>`;
+  facts are still confabulated and shallow transformations fail (samples
+  and analysis in `book/src/results.md` and chapter 6 of the book).
 
 ## Important: don't train from a synced folder
 

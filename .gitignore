@@ -174,3 +174,6 @@ instance/
 
 # mdBook build output
 book/book/
+
+# ZCode/Mimosa session artifact (auto-generated, synced from this file)
+.zcodeignore

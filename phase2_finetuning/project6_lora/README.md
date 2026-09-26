@@ -83,8 +83,14 @@ uv run python phase2_finetuning/project6_lora/generate.py --interactive
   early (4.82 -> 4.20) because a random frozen base offers noise
   features; LoRA's premise is a pre-trained base, which is what the real
   run supplies.
-- Run numbers for the real fine-tuning go to `book/src/results.md` when
-  complete.
+- Real run (2026-09-26/27): 2,400 steps in ~78 min (~2.0 s/step) at
+  ~4.0 GB GPU; val loss 4.9941 at iter 0 (the base model's number, which
+  confirms the zero-init identity on the real checkpoint) -> 3.802
+  (ppl 44.8), monotone down, no overfit. Head-to-head on identical data:
+  full SFT reached 2.766, so r=8 on `c_attn` captured ~53% of the loss
+  improvement with 0.31% of the parameters, and its samples loop over
+  short fragments where full SFT looped over plausible sentences. Full
+  numbers: `book/src/results.md` and chapter 7 of the book.
 
 ## Important: don't train from a synced folder
 
