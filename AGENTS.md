@@ -28,7 +28,8 @@ Two things live side by side here:
 
 1. `book/` — an mdBook (source in `book/src/`) that documents the training
    session as a readable guide, with hand-written SVG figures.
-2. `phase1_foundation/` — the runnable projects each chapter is based on.
+2. `phase1_foundation/` and `phase2_finetuning/` — the runnable projects
+   each chapter is based on.
 
 ## Current status
 
@@ -39,8 +40,10 @@ Two things live side by side here:
 | 3. Contextual Embeddings (BERT-style) | `phase1_foundation/project3_contextual_embeddings/` | `ch03-bert-embeddings.md` | complete |
 | 3B. SimCSE | `phase1_foundation/project3b_simcse/` | `ch04-simcse.md` | complete |
 | 4. Pre-train 125M model | `phase1_foundation/project4_pretrain/` | `ch05-pretrain.md` | complete |
+| 5. Supervised Fine-Tuning (SFT) | `phase2_finetuning/project5_sft/` | `ch06-sft.md` | scaffolded; pipeline smoke-verified, real run + chapter pending |
 
-Phase 2 (SFT, LoRA, DPO) onward: see the roadmap in `README.md` and
+Phase 2 continues with LoRA (6) and DPO (7), both attaching to the
+project 5 SFT checkpoint. See the roadmap in `README.md` and
 `book/src/curriculum.md`. The full pipeline is tokenization → pre-training →
 fine-tuning → optimization → deployment.
 
@@ -71,6 +74,13 @@ uv run python phase1_foundation/project3b_simcse/download_data.py
 uv run python phase1_foundation/project3b_simcse/test_model.py
 uv run python phase1_foundation/project3b_simcse/train.py
 uv run python phase1_foundation/project3b_simcse/evaluate.py
+
+# Chapter 6 (pending) — SFT: needs the project 4 base checkpoint first
+uv run python phase2_finetuning/project5_sft/download_data.py --size full
+uv run python phase2_finetuning/project5_sft/prepare_data.py
+uv run python phase2_finetuning/project5_sft/test_model.py
+uv run python phase2_finetuning/project5_sft/train.py
+uv run python phase2_finetuning/project5_sft/generate.py --instruction "Give three tips for staying healthy."
 ```
 
 ### Book
