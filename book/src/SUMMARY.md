@@ -11,6 +11,11 @@
 - [SimCSE: Sentence Embeddings](./ch04-simcse.md)
 - [Pre-Training a 125M GPT](./ch05-pretrain.md)
 
+# Part II — Fine-Tuning
+
+- [Supervised Fine-Tuning](./ch06-sft.md)
+- [Low-Rank Adaptation (LoRA)](./ch07-lora.md)
+
 # Appendices
 
 - [The Roadmap: 10 Phases, 32 Projects](./curriculum.md)

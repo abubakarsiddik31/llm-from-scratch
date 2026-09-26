@@ -19,11 +19,11 @@ generation, masked language modeling, contrastive learning.
 
 ## Phase 2 — Fine-Tuning
 
-| Project | Topic |
-|---------|-------|
-| 5 | Supervised Fine-Tuning (SFT) |
-| 6 | LoRA Fine-Tuning |
-| 7 | DPO (Direct Preference Optimization) |
+| Project | Topic | Status |
+|---------|-------|--------|
+| 5 | Supervised Fine-Tuning (SFT) | ✅ [Chapter 6](./ch06-sft.md) |
+| 6 | LoRA Fine-Tuning | |
+| 7 | DPO (Direct Preference Optimization) | |
 
 **Focus:** instruction formatting, memory-efficient training, preference
 alignment.

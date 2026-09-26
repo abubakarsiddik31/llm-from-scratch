@@ -101,6 +101,30 @@ WebText, different tokenizer) and not comparable to this in-domain run.
 A Chinchilla-optimal token budget for 126M parameters would be ~2.5B
 tokens, about 19× this run (~50 hours at the measured throughput).
 
+## Chapter 6 — Supervised Fine-Tuning
+
+Fine-tuned the Chapter 5 base model on Stanford Alpaca (52,002 triples;
+28 dropped for empty outputs; 50,973 train / 1,000 val after encoding and
+a seeded split), Alpaca template, response-only loss masking, lr 2e-5,
+2,400 steps = 153,600 example visits (~3.0 epochs).
+
+| Metric | Value |
+|---|---|
+| Encoding speed | ~1,600 examples/s (~33 s for the full set) |
+| Corpus averages | 65.8 prompt + 70.3 response tokens; 0.003% `<UNK>` |
+| Wall time | ~1 h 42 min (bf16, 8 × 8 × 511 batch shape, ~2.5 s/step) |
+| GPU memory | ~5.8 GB of 8 GB |
+| Val loss (response tokens), base model | 4.994 |
+| Val loss, 100 / 400 / 800 steps | 3.708 / 3.168 / 2.954 |
+| Final val loss (2,400 steps) | **2.766** (perplexity 15.9) |
+| Best checkpoint | iter 2,300 (val 2.769); val monotone down, no overfit in 3 epochs |
+| Behavior change | answers in the template slot and stops via `<EOS>`; facts confabulated, shallow transformations (copied input on a past-tense rewrite) |
+
+Before SFT, the base model continued the template into WikiText prose
+("...### Response:= = = = Contents of the House = = = =..."). After SFT it
+produces answer-shaped spans and ends its turn; sample quality limits are
+recorded honestly in the chapter.
+
 ## Reproducing
 
 Every number above comes from the commands in

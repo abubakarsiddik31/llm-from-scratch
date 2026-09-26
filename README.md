@@ -67,7 +67,7 @@ You'll implement every component of an LLM pipeline from scratch:
 
 | Project | Topic | Status |
 |---------|-------|--------|
-| **5** | Supervised Fine-Tuning (SFT) | 🚧 Scaffolded |
+| **5** | Supervised Fine-Tuning (SFT) | ✅ Complete |
 | **6** | LoRA Fine-Tuning | 🚧 Scaffolded |
 | **7** | DPO (Direct Preference Optimization) | ⏳ Pending |
 
@@ -199,7 +199,7 @@ implementation/
 │   └── project4_pretrain/          ✅ Complete
 │
 ├── phase2_finetuning/
-│   ├── project5_sft/               🚧 Scaffolded
+│   ├── project5_sft/               ✅ Complete
 │   ├── project6_lora/              🚧 Scaffolded
 │   └── project7_dpo/
 │

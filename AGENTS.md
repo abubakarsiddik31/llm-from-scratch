@@ -40,7 +40,7 @@ Two things live side by side here:
 | 3. Contextual Embeddings (BERT-style) | `phase1_foundation/project3_contextual_embeddings/` | `ch03-bert-embeddings.md` | complete |
 | 3B. SimCSE | `phase1_foundation/project3b_simcse/` | `ch04-simcse.md` | complete |
 | 4. Pre-train 125M model | `phase1_foundation/project4_pretrain/` | `ch05-pretrain.md` | complete |
-| 5. Supervised Fine-Tuning (SFT) | `phase2_finetuning/project5_sft/` | `ch06-sft.md` | scaffolded; pipeline smoke-verified, real run + chapter pending |
+| 5. Supervised Fine-Tuning (SFT) | `phase2_finetuning/project5_sft/` | `ch06-sft.md` | complete (2,400-step run done: val 4.99→2.77, 1h42m) |
 | 6. LoRA Fine-Tuning | `phase2_finetuning/project6_lora/` | `ch07-lora.md` | scaffolded; CPU-verified (8/8 tests), real run + chapter pending |
 
 Phase 2 continues with DPO (7). Project 6 reuses project 5's encoded
